@@ -1,0 +1,17 @@
+{% extends 'site_vendas/base.html' %}
+{% load static %}
+{% block content%}
+  <div class="container">
+    <div class="cart">
+      <h2>Itens no Carrinho</h2>
+      <ul class="cart-items">
+        <!-- Itens do carrinho serão adicionados dinamicamente pelo JavaScript -->
+      </ul>
+      <p class="total">Total: $<span id="cart-total">0.00</span></p>
+      <button class="checkout">Finalizar Compra</button>
+    </div>
+  </div>
+
+  <script src="{% static '/scripts/script.js' %}"></script>
+
+{% endblock %}

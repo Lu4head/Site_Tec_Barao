@@ -1,0 +1,14 @@
+{% load static %}
+
+<header>
+    <img id="img1" src="{% static '/assets/img/letra.png' %}" alt="picletra">
+    <div class="header-links">
+      <a>Vestuário</a>
+      <!-- <a href="{% url 'produto' %}" class="nav-link">Vestuário</a> -->
+      <a href="{% url 'index' %}" class="nav-link">Home</a>
+      <!-- <a href="{% url 'produto' %}" class="nav-link">Canecas</a> -->
+      <a>Canecas</a>
+    </div>
+    <a href="{% url 'cart' %}" class="cart-icon">&#128722;</a>
+    <img id="img2" src="{% static '/assets/img/logoteste.png' %}" alt="picheader">
+  </header>
