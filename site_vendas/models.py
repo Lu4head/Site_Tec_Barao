@@ -26,6 +26,9 @@ class DIM_Usuario(models.Model):
     Telefone_usuario = models.CharField(max_length = 20, null= False, blank= False, unique= True, verbose_name= "Telefone do usuario", default="") 
     Senha_usuario = models.CharField(max_length= 50, verbose_name= "Senha do usuario", default="") # tratar senha melhor
 
+    def __str__(self):
+        return self.Nome_USUARIO
+
     def save(self, *args, **kwargs): #para calcular e salvar idade
         if self.Data_nascimento_USUARIO:
             Today = datetime.today().date()
@@ -44,6 +47,13 @@ class DIM_Produto (models.Model):
     Leedtime_PRODUTO = models.DecimalField(max_digits= 2, decimal_places= 0, verbose_name="Tempo medio de espera do produto", null= True,blank=False)
     Imagem_PRODUTO = models.ImageField(upload_to="fotos/", default= "") 
 
+    class Meta:
+        verbose_name = "Produto"
+        verbose_name_plural = "Produtos"
+
+    def __str__(self):
+        return self.Nome_PRODUTO
+
 class DIM_Fornecedor (models.Model):
     Nome_FORNECEDOR = models.CharField(max_length=100, null= False, blank= False, default="", verbose_name= "Nome do fornecedor")
     Endereco_FORNECEDOR = models.CharField(max_length= 200, default="", verbose_name="Endereço do fornecedor")
@@ -51,6 +61,9 @@ class DIM_Fornecedor (models.Model):
     Cidade_FORNECEDOR = models.CharField(max_length= 50, verbose_name="Cidade do fornecedor", default= "")
     Cep_FORNECEDOR = models.CharField(max_length=8, verbose_name="CEP do fornecedor",blank= False, null= False, default= "")
     Estado_FORNECEDOR = models.CharField(max_length=2, verbose_name="Estado do fornecedor",default= "")
+
+    def __str__(self):
+        return self.Nome_FORNECEDOR
 
 class FAT_venda (models.Model):
     Id_USUARIO = models.ForeignKey(DIM_Usuario, on_delete= models.CASCADE)
