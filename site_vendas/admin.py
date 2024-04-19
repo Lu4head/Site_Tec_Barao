@@ -1,5 +1,6 @@
 from django.contrib import admin
-from site_vendas.models import DIM_Fornecedor, DIM_Produto , DIM_Usuario , FAT_pedido_compra , FAT_venda
+from site_vendas.models import DIM_Fornecedor, DIM_Produto , FAT_pedido_compra , FAT_venda
+
 
 class ListaProdutos(admin.ModelAdmin):
     list_display = ("id","Nome_PRODUTO","Tipo_PRODUTO","Preco_produto","Produto_ativo_PRODUTO")

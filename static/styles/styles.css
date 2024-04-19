@@ -239,4 +239,82 @@ a:hover {
   font-size: 36px; /* Dobre o tamanho da fonte */
 }
 
+.login{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 200px;
+  margin: 0 auto;
+  z-index: 6;
+  font-size: 20px;
+  color: black;
+}
 
+.formulario {
+  color: black;
+  max-width: 500px;
+  display: flex; /* Alterado para flex */
+  flex-direction: column; /* Define a direção como coluna */
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  margin: 0 auto; /* Adicionado para centralizar horizontalmente */
+  margin: 50px auto 0;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.formulario h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input, select{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Animação de fadeIn */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}

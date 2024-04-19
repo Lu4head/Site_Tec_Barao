@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlética de Tecnologia</title>
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #333;
+    }
+
+    header {
+        background-color: rgb(254, 215, 5);
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+  </style>
+</head>
+<body>
+<header>
+    <img id="img1" src="{% static '/assets/img/letra.png' %}" alt="picletra">
+    <img id="img2" src="{% static '/assets/img/logoteste.png' %}" alt="picheader">
+</header>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
