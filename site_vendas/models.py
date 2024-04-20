@@ -1,12 +1,17 @@
 from django.db import models
 from django.utils import timezone
 from usuarios.models import DIM_Usuario
-tipo_do_produto =    [("vestuario", "Vestuário"),
-                     ("caneca", "Caneca")]
+from django.contrib.auth.models import User
+
+
 
 
 
 class DIM_Produto (models.Model):
+
+    tipo_do_produto = [("vestuario", "Vestuário"),
+                     ("caneca", "Caneca")]
+    
     Nome_PRODUTO = models.CharField(max_length= 100, null = False, blank= False, default= "", verbose_name= "Nome do produto")
     Descricao_PRODUTO = models.CharField(max_length= 300, verbose_name="Descrição do produto", default= "")
     Tipo_PRODUTO = models.CharField(max_length= 50, choices= tipo_do_produto, verbose_name="Tipo de produto", default="")
@@ -45,10 +50,14 @@ class FAT_venda (models.Model):
 
 
 class FAT_pedido_compra (models.Model):
-    #Id_ADM = models.ForeignKey()
-    Id_PRODUTO = models.ForeignKey(DIM_Produto, on_delete=models.CASCADE)
+    Id_ADM = models.ForeignKey(User,on_delete=models.CASCADE, default="")
+    Id_PRODUTO = models.ForeignKey(DIM_Produto, on_delete=models.CASCADE, default="")
     Id_FORNECEDOR = models.ForeignKey(DIM_Fornecedor, on_delete= models.CASCADE)
     Qtd_PEDIDO = models.DecimalField(max_digits= 2, decimal_places=0, null= True,blank=False, verbose_name="Quantidade de itens")
     Data_PEDIDO = models.DateField(default= timezone.now,verbose_name="Data do pedido")
     Data_chegada_PEDIDO = models.DateField(verbose_name="Data da chegada do pedido", null= True)
     Custo_PEDIDO = models.DecimalField(max_digits=6, decimal_places=2, null= True,blank= False, verbose_name="Custo total do pedido")
+    
+    class Meta:
+        verbose_name = "Pedido de Compra"
+        verbose_name_plural = "Pedidos de Compra"

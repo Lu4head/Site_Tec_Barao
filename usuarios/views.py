@@ -35,7 +35,6 @@ def cadastro(request):
                 Unidade_USUARIO=unidade,
                 Data_nascimento_USUARIO=data_nascimento,
             )
-
             return redirect('login')
 
     return render(request, 'usuarios/cadastro.html', {"form": form})

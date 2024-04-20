@@ -1,35 +1,9 @@
 from django import forms
+from usuarios.models import DIM_Usuario
 
-cursos =    [("design_grafico", "Design Gráfico"),
-                 ("ciencia_computacao", "Ciência da Computação")]
-
-unidades =  [("unidade_independencia", "Unidade Independência"),
-                 ("unidade_central", "Unidade Central"),
-                 ("unidade_direito", "Unidade Direito")]
 
 class LoginForms(forms.Form):
-    nome_login = forms.CharField(
-        label = "Nome Completo:",
-        required = True,
-        max_length = 150,
-        widget = forms.TextInput(
-            attrs={
-                "class":"form-control",
-                "placeholder":"Ex.: João Silva",
-            }
-        ),
-    )
-    senha = forms.CharField(
-        label = "Senha:",
-        required = True,
-        max_length = 50,
-        widget = forms.PasswordInput(
-            attrs={
-                "class":"form-control",
-                "placeholder":"Digite sua senha"
-            }
-        ),
-    )
+    pass
 
 class CadastroForms(forms.Form):
     nome_cadastro = forms.CharField(
@@ -101,13 +75,13 @@ class CadastroForms(forms.Form):
     curso = forms.ChoiceField(
         label = "Curso:",
         required = True,
-        choices = cursos,
+        choices = DIM_Usuario.cursos,
         widget = forms.Select(attrs={"class":"form-control"})
     )
     unidade =forms.ChoiceField(
         label = "Unidade:",
         required = True,
-        choices = unidades,
+        choices = DIM_Usuario.unidades,
         widget = forms.Select(attrs={"class":"form-control"})
     )
     data_nascimento = forms.DateField(

@@ -11,3 +11,12 @@ class ListaProdutos(admin.ModelAdmin):
     list_per_page = 10
 
 admin.site.register(DIM_Produto, ListaProdutos)
+
+class ListaPedidos(admin.ModelAdmin):
+    list_display = ("id","Data_PEDIDO","Data_chegada_PEDIDO")
+    list_display_links = ("id",)
+    search_fields = ("Data_Pedido",)
+    list_filter = ("Data_PEDIDO","Data_chegada_PEDIDO","Id_FORNECEDOR","Id_PRODUTO","Id_ADM")
+    list_per_page = 10
+
+admin.site.register(FAT_pedido_compra, ListaPedidos)
