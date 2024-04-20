@@ -1,9 +1,25 @@
 from django.shortcuts import render, redirect
 from usuarios.forms import LoginForms, CadastroForms
+from django.contrib.auth import authenticate, login
 from usuarios.models import DIM_Usuario
 # Create your views here.
 def login(request):
-    return render(request,'usuarios/login.html')
+    form = LoginForms()
+    if request.method == 'POST':
+        form = LoginForms(request.POST)
+        
+        if form.is_valid():
+            email = form['email'].value()
+            senha = form['senha'].value()
+
+            user = DIM_Usuario.objects.filter(Email_USUARIO=email).first()
+
+            if user is not None and user.Senha_USUARIO == senha:
+                login(request,user)
+                return redirect('default')
+            else:
+                return redirect('login')          
+    return render(request,'usuarios/login.html', {"form": form})
 
 def cadastro(request):
     form = CadastroForms()

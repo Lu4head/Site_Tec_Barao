@@ -3,7 +3,28 @@ from usuarios.models import DIM_Usuario
 
 
 class LoginForms(forms.Form):
-    pass
+    email = forms.EmailField(
+        label= "Email",
+        required= True,
+        max_length= 150,
+        widget= forms.EmailInput(
+            attrs={
+                "class":"form-control",
+                "placeholder":"Ex.: joaosilva@xpto.com",
+            }
+        ),
+    )
+    senha = forms.CharField(
+        label= "Senha:",
+        required= True,
+        max_length= 50,
+        widget=forms.PasswordInput(
+            attrs={
+                "class":"form-control",
+                "placeholder":"Digite sua senha"
+            }
+        ),
+    )
 
 class CadastroForms(forms.Form):
     nome_cadastro = forms.CharField(

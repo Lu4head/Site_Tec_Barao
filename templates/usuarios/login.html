@@ -2,4 +2,13 @@
 {% load static %}
 {% block content%}
 
+<form class="formulario" action="#" method="POST">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+    <label for="{{field.id_for_label}}">{{field.label}}</label>
+    {{field}}
+    {% endfor %}
+    <input type="submit" value="Registrar">
+</form>
+
 {% endblock %}
