@@ -1,5 +1,4 @@
-Site para vendas da Atlética de Técnologia Barão de Mauá
-
+<h1 align="center"> Site para vendas da Atlética de Técnologia Barão de Mauá </h1>
 Passo a passo para utilizar o repositório:
 1. Fazer download do python caso ainda não o tenha
 2. Importar o repositório para uma pasta vazia de seu sistema
