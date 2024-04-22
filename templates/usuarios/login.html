@@ -4,6 +4,11 @@
 
 <form class="formulario" action="#" method="POST">
     {% csrf_token %}
+    <div class = "messages">
+        {% for message in messages %}
+            <p class = "message {{message.tags}}-message">{{ message }}</p>
+        {% endfor %}
+    </div>
     {% for field in form.visible_fields %}
     <label for="{{field.id_for_label}}">{{field.label}}</label>
     {{field}}
