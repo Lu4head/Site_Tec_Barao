@@ -8,19 +8,30 @@ def login(request):
     form = LoginForms()
     if request.method == 'POST':
         form = LoginForms(request.POST)
-        
         if form.is_valid():
             email = form.cleaned_data['email']
             senha = form.cleaned_data['senha']
             user = DIM_Usuario.objects.filter(Email_USUARIO=email).first()
-
             if user is not None and user.Senha_USUARIO == senha:
                 request.session["email"] = user.Email_USUARIO
                 return redirect('/')
-            
-            else:
-                return redirect('login')          
-    return render(request,'usuarios/login.html', {"form": form})
+    return render(request, 'usuarios/login.html', {"form": form})
+
+def index(request):
+    email = request.session.get("email")
+    return render(request, '/', {"email": email})
+
+
+
+
+from django.contrib.auth import logout
+
+def logout_view(request):
+    
+    request.session.clear()
+    
+    return redirect('login')
+
 
 def cadastro(request):
     form = CadastroForms()

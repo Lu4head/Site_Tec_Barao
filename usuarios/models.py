@@ -72,3 +72,4 @@ class DIM_Usuario(models.Model):
             self.Idade_USUARIO = idade
 
         super(DIM_Usuario, self).save(*args, **kwargs)
+        
