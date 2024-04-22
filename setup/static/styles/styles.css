@@ -298,13 +298,11 @@ a:hover {
 .error-message {
   --bs-alert-color: #270101;
   --bs-alert-bg: #ffcfcf;
-  --bs-alert-border-color: #b6d4fe;
 }
 
 .success-message {
   --bs-alert-color: #012c03;
   --bs-alert-bg: #cfffcf;
-  --b
 }
 
 .formulario {

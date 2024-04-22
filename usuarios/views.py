@@ -12,9 +12,20 @@ def login(request):
             email = form.cleaned_data['email']
             senha = form.cleaned_data['senha']
             user = DIM_Usuario.objects.filter(Email_USUARIO=email).first()
-            if user is not None and user.Senha_USUARIO == senha:
-                request.session["email"] = user.Email_USUARIO
-                return redirect('/')
+            if user is not None:
+                if user.Senha_USUARIO == senha:
+                    request.session["email"] = user.Email_USUARIO
+                    messages.success(request,f"Usuário  {user.Nome_USUARIO} logado com sucesso")
+                    return redirect('/')
+                else:
+                    messages.error(request,"Senha incorreta!")
+                    return redirect('login')
+            else:
+                messages.error(request,"Usuário não existe!")
+                return redirect('login')
+        else:
+            messages.error(request,"Erro ao efetuar login")
+            return redirect('login')
     return render(request, 'usuarios/login.html', {"form": form})
 
 def cadastro(request):
