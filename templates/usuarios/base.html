@@ -12,14 +12,6 @@
     <img id="img1" src="{% static '/assets/img/letra.png' %}" alt="picletra">
     <img id="img2" src="{% static '/assets/img/logoteste.png' %}" alt="picheader">
 </header>
-{% if request.session.get.email %}
-    <p>Bem-vindo, {{ request.session.email }}!</p>
-    <!-- Links ou informações adicionais para usuários logados -->
-    <a href="{% url 'logout' %}">Sair</a>
-{% else %}
-    <!-- Caso contrário, mostre um link para a página de login -->
-    <a href="{% url 'login' %}">Faça login</a>
-{% endif %}
 {% block content %}{% endblock %}
 </body>
 </html>

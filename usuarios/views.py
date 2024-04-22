@@ -17,22 +17,6 @@ def login(request):
                 return redirect('/')
     return render(request, 'usuarios/login.html', {"form": form})
 
-def index(request):
-    email = request.session.get("email")
-    return render(request, '/', {"email": email})
-
-
-
-
-from django.contrib.auth import logout
-
-def logout_view(request):
-    
-    request.session.clear()
-    
-    return redirect('login')
-
-
 def cadastro(request):
     form = CadastroForms()
     if request.method == 'POST':
