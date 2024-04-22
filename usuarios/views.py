@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from usuarios.forms import LoginForms, CadastroForms
 from usuarios.models import DIM_Usuario
 from django.contrib import messages
+from datetime import datetime
+from usuarios.utils import validar_campo
 
 
 def login(request):
@@ -38,18 +40,37 @@ def cadastro(request):
                 return redirect('cadastro') 
                     
             nome = form['nome_cadastro'].value()
+
+            if DIM_Usuario.objects.filter(Nome_USUARIO=nome).exists():
+                messages.error(request,"Já há um usuário cadastrado com este nome.")
+                return redirect('cadastro')
+            
+            if not validar_campo(nome):
+                 messages.error(request,"Nome contém caracteres inválidos")
+                 return redirect('cadastro')
+            
             email = form['email'].value()
+
             if DIM_Usuario.objects.filter(Email_USUARIO=email).exists():
                 messages.error(request,'Email já cadastrado')    
                 return redirect('cadastro')
+            
             senha = form['senha_1'].value()
             telefone = form['telefone'].value()
+
             cidade = form['cidade'].value()
+
+            if not validar_campo(cidade):
+                messages.error(request,"Cidade contém caracteres inválidos")
+                return redirect('cadastro')
+            
             curso = form['curso'].value()
             unidade = form['unidade'].value()
             data_nascimento = form['data_nascimento'].value()
-
-            if DIM_Usuario.objects.filter(Nome_USUARIO=nome).exists():
+            
+            ano_nascimento = datetime.strptime(data_nascimento, '%Y-%m-%d').year
+            if ano_nascimento < (datetime.now().year - 110) or ano_nascimento > datetime.now().year:
+                messages.error(request,"Data de nascimento inválida!")
                 return redirect('cadastro')
             
             user = DIM_Usuario.objects.create(
@@ -64,5 +85,7 @@ def cadastro(request):
             )
             messages.success(request, 'Cadastro efetuado com sucesso!')
             return redirect('login')
+        
+        
 
     return render(request, 'usuarios/cadastro.html', {"form": form})
