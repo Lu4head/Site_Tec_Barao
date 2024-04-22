@@ -1,17 +1,33 @@
 {% extends 'site_vendas/base.html' %}
 {% load static %}
 {% block content%}
-  <div class="container">
-    <div class="cart">
-      <h2>Itens no Carrinho</h2>
-      <ul class="cart-items">
-        <!-- Itens do carrinho serão adicionados dinamicamente pelo JavaScript -->
-      </ul>
-      <p class="total">Total: $<span id="cart-total">0.00</span></p>
-      <button class="checkout">Finalizar Compra</button>
-    </div>
-  </div>
-
-  <script src="{% static '/scripts/script.js' %}"></script>
-
+<div class="container">
+  <table>
+      <thead>
+          <tr>
+              <th>Produto</th>
+              <th>Preço</th>
+              <th>Quantidade</th>
+              <th>Total</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Aqui você pode adicionar linhas para cada produto no carrinho -->
+          <tr>
+              <td>Produto 1</td>
+              <td>R$ 50,00</td>
+              <td>1</td>
+              <td>R$ 50,00</td>
+          </tr>
+          <tr>
+              <td>Produto 2</td>
+              <td>R$ 30,00</td>
+              <td>2</td>
+              <td>R$ 60,00</td>
+          </tr>
+          <!-- Adicione mais linhas conforme necessário -->
+      </tbody>
+  </table>
+  <a href="#" class="checkout-btn">Finalizar Compra</a>
+</div>
 {% endblock %}

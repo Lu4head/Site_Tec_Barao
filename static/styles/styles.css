@@ -24,13 +24,13 @@ header h1 {
 }
 
 #img1{
-  max-width: 25%;
+  max-width: 300px;
 }
 
 #img2 {
   max-width: 20%;
   top: 0px;
-  left: 20px;
+  left: 1%;
   position: fixed;
   z-index: 6;
   position: absolute;
@@ -100,7 +100,7 @@ header h1 {
 
 .cart {
   flex-basis: 100%; /* Largura total */
-  z-index: 5;
+  z-index: 5; 
 }
 
 .cart h2 {
@@ -119,42 +119,68 @@ header h1 {
 .cart-icon {
   font-size: 24px;
   text-decoration: none;
-  color: #fff;
-  margin-right: 20px;
+  color: black;
+  margin-right: 1.8%;
   position: fixed;
-  top: 100px;
-  right: 20px;
+  top: 19%;
+  right: 1%;
+  position: absolute;
+}
+.login-icon{
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  margin-right: 2%;
+  position: fixed;
+  top: 19%;
+  right: 5%;
+  position: absolute;
+}
+.home-icon{
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  margin-right: 2%;
+  position: fixed;
+  top: 19%;
+  right: 9%;
   position: absolute;
 }
 
 /* Media queries para telas menores */
-@media screen and (max-width: 800px) {
-  .product {
-    width: calc(40% - 20px); /* Duas colunas com margens entre elas */
+@media screen and (max-width: 768px) {
+  .cart-icon {
+    top: 60px;
+    right: 10px;
   }
-  
-  .cart {
-    flex-basis: 100%; /* Largura total */
+  .login-icon{
+    top: 66px;
+    right: 45px;
+  }
+
+  .home-icon{
+    right: 180px;
+    top: 66px;
   }
 }
 
 /* Media queries para telas pequenas */
-@media screen and (max-width: 380px) {
-  .product {
-    width: calc(90% - 20px); /* Uma coluna sem margem nas laterais */
+@media screen and (max-width: 576px) {
+  #img1{
+    width: 50%;
   }
-  
-  .cart {
-    flex-basis: 100%; /* Largura total */
-  }
-  
-  .checkout {
-    padding: 10px;
-  }
-  
-  /* Ajuste do posicionamento fixo para telas menores */
   .cart-icon {
+    top: 45px;
     right: 10px;
+  }
+  .login-icon{
+    top: 50px;
+    right: 50px;
+  }
+
+  .home-icon{
+    right: 80px;
+    top: 50px;
   }
 }
 
@@ -275,6 +301,8 @@ a:hover {
   margin: 0 auto; /* Adicionado para centralizar horizontalmente */
   margin: 50px auto 0;
   animation: fadeIn 1s ease-in-out;
+  bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .formulario h2 {
@@ -300,7 +328,12 @@ input, select{
   box-sizing: border-box;
 }
 
-input[type="submit"] {
+
+input.login_form , input.cadastro_form, a.cadastro_form :hover {
+  background-color: #45a049;
+}
+
+input.login_form , input.cadastro_form {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -312,9 +345,17 @@ input[type="submit"] {
   transition: background-color 0.3s;
 }
 
-
-input[type="submit"]:hover {
-  background-color: #45a049;
+a.cadastro_form{
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s;
 }
 
 /* Animação de fadeIn */
@@ -327,4 +368,73 @@ input[type="submit"]:hover {
       opacity: 1;
       transform: translateY(0);
   }
+}
+
+.cadastro{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 200px;
+  margin: 0 auto;
+  z-index: 6;
+  font-size: 20px;
+  color: black;
+}
+
+footer {
+  background-color: rgb(254, 215, 5);
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.social-icons {
+  font-size: 24px;
+}
+
+.social-icons a {
+  color: black;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: white;
+}
+
+
+.checkout-btn {
+  display: block;
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  flex: 1;
+  table-layout: fixed; /* Adicionado */
+  width: 500px;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid rgb(254, 215, 5);
+  text-align: left;
+}
+th {
+  background-color: rgb(254, 215, 5);
 }

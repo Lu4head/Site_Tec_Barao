@@ -39,14 +39,12 @@
         <p>{{ produto.Descricao_PRODUTO }}</p>
         <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>
       </div>
+    </div>
+  </div>  
   {% endfor %}
   {% else %}
   <div class="product">
     <p>Produtos não encontrados</p>
   </div>
   {% endif %}
-    </div>
-  </div>
-
-  <script src="{% static '/scripts/script.js' %}"></script>
 {% endblock %}

@@ -8,7 +8,9 @@
     <label for="{{field.id_for_label}}">{{field.label}}</label>
     {{field}}
     {% endfor %}
-    <input type="submit" value="Login">
+    <input class="login_form" type="submit" value="Login">
+    <a class="cadastro_form" href="{% url 'cadastro' %}">Criar conta</a>
+
 </form>
 
 {% endblock %}
