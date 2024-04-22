@@ -251,6 +251,16 @@ a:hover {
   color: black;
 }
 
+.error-message {
+  color:red;
+  font-size:small;
+  padding-top:2px;
+  padding-bottom:2px;
+  border: 1px solid red;
+  background-color: white;
+  border-radius: 2px;
+}
+
 .formulario {
   color: black;
   max-width: 500px;

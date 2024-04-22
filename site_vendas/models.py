@@ -2,6 +2,9 @@ from django.db import models
 from django.utils import timezone
 from usuarios.models import DIM_Usuario
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.db import models
+
 
 
 
@@ -50,7 +53,7 @@ class FAT_venda (models.Model):
 
 
 class FAT_pedido_compra (models.Model):
-    Id_ADM = models.ForeignKey(User,on_delete=models.CASCADE, default="")
+    Id_ADM = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     Id_PRODUTO = models.ForeignKey(DIM_Produto, on_delete=models.CASCADE, default="")
     Id_FORNECEDOR = models.ForeignKey(DIM_Fornecedor, on_delete= models.CASCADE)
     Qtd_PEDIDO = models.DecimalField(max_digits= 2, decimal_places=0, null= True,blank=False, verbose_name="Quantidade de itens")
