@@ -11,8 +11,12 @@
 </head>
 
 <body>
-  {% include 'partials/_alert.html' %}
   {% include 'partials/_header.html' %}
+  <div class = "messages fade-out">
+    {% for message in messages %}
+        <p class = "message message-index {{message.tags}}-message">{{ message }}</p>
+    {% endfor %}
+  </div>
   {% block content %}{% endblock %}
   {% include 'partials/_footer.html' %}
 </body>

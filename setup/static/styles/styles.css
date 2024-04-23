@@ -170,17 +170,17 @@ header h1 {
     width: 50%;
   }
   .cart-icon {
-    top: 45px;
-    right: 10px;
+    top: 4.8rem;
+    right: 0rem;
   }
   .login-icon{
-    top: 50px;
-    right: 50px;
+    top: 4.8rem;
+    right: 2rem;
   }
 
   .home-icon{
-    right: 80px;
-    top: 50px;
+    top: 4.8rem;
+    right: 3.8rem;
   }
 }
 
@@ -295,6 +295,20 @@ a:hover {
   border-radius: var(--bs-alert-border-radius);
 }
 
+.message-index{
+z-index: 7;
+text-align: center;
+max-width: 15%;
+margin: 0 auto;
+margin-top: 1%;
+animation: fadeIn 1s ease-in-out;
+}
+
+.fade-out{
+  animation: fadeOut 1s ease-in-out forwards; /* Aplica a animação de fade-out com duração de 1 segundo e um efeito suave */
+  animation-delay: 3s; /* Delay de 3 segundos para iniciar a animação de fade-out */
+}
+
 .error-message {
   --bs-alert-color: #270101;
   --bs-alert-bg: #ffcfcf;
@@ -320,7 +334,8 @@ a:hover {
   margin: 50px auto 0;
   animation: fadeIn 1s ease-in-out;
   bottom: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 3.8rem;
+  
 }
 
 .formulario h2 {
@@ -385,6 +400,15 @@ a.cadastro_form{
   to {
       opacity: 1;
       transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1; /* No início da animação, o elemento está completamente visível */
+  }
+  to {
+      opacity: 0; /* No final da animação, o elemento está completamente transparente */
   }
 }
 
@@ -456,3 +480,4 @@ th, td {
 th {
   background-color: rgb(254, 215, 5);
 }
+
