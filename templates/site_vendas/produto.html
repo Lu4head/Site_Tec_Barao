@@ -6,10 +6,12 @@
       <img id="imgprod" src="{{ produto.Imagem_PRODUTO.url }}" alt="imgprod">
       <div class="prodinfo">
         <h2>{{ produto.Nome_PRODUTO }}</h2>
-        <p>${{ produto.Preco_venda_PRODUTO }}</p>
 
         <h4>Descrição:</h4>
-        <p>{{ produto.Descricao_PRODUTO }}</p>
+        <p class="description">{{ produto.Descricao_PRODUTO }}</p>
+
+        <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>
+
       </div>
     </div>
   </div>
