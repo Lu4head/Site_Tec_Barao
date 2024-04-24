@@ -372,11 +372,11 @@ input, select{
 }
 
 
-input.login_form , input.cadastro_form, a.cadastro_form :hover {
+input.login_form , a.cadastro_form :hover {
   background-color: #45a049;
 }
 
-input.login_form , input.cadastro_form {
+input.login_form {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -391,7 +391,7 @@ input.login_form , input.cadastro_form {
 a.cadastro_form{
   background-color: #4CAF50;
   color: white;
-  padding: 14px 5px;
+  padding: 14px 0px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
