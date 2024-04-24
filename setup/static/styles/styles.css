@@ -147,6 +147,23 @@ header h1 {
   position: absolute;
 }
 
+@media screen and (max-width: 414px) {
+  #img1 {
+    width: 50%;
+  }
+  .cart-icon {
+    top: 5rem;
+    right: 0rem;
+  }
+  .login-icon {
+    top: 5rem;
+    right: 2rem;
+  }
+  .home-icon {
+    top: 5rem;
+    right: 3.8rem;
+  }
+}
 
 /* Media queries para celular iphone xr+ samsung a51/71 */
 @media screen and (max-width: 576px) {
@@ -154,15 +171,15 @@ header h1 {
     width: 50%;
   }
   .cart-icon {
-    top: 4.8rem;
+    top: 4.5rem;
     right: 0rem;
   }
   .login-icon {
-    top: 4.8rem;
+    top: 4.5rem;
     right: 2rem;
   }
   .home-icon {
-    top: 4.8rem;
+    top: 4.5rem;
     right: 3.8rem;
   }
 }
