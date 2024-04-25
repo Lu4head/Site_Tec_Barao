@@ -231,6 +231,7 @@ a:hover {
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   z-index: 5;
+  max-width: 60rem;
 }
 .realproduto:hover {
   transform: scale(1.01);
@@ -239,8 +240,8 @@ a:hover {
 }
 
 #imgprod {
-  max-width: 35rem; /* Imagem responsiva com 45% da largura */
-  height: 15rem;
+  max-width: 45rem; /* Imagem responsiva com 45% da largura */
+  height: 20rem;
   border-radius: 8px; /* Arredondar as bordas da imagem */
   margin-right: 20px; /* Espaçamento entre a imagem e as informações */
   margin: 10px;
