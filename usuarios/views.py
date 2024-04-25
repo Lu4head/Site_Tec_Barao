@@ -42,7 +42,7 @@ def cadastro(request):
             if form.cleaned_data['senha_1'] != form.cleaned_data['senha_2']:
                 messages.error(request, "Senhas divergentes")
                 return redirect('cadastro') 
-<<<<<<< HEAD
+
 
             nome = form.cleaned_data['nome_cadastro']
             email = form.cleaned_data['email']
@@ -57,11 +57,9 @@ def cadastro(request):
                 messages.error(request,"Já há um usuário cadastrado com este nome.")
                 return redirect('cadastro')
 
-=======
                     
             nome = form['nome_cadastro'].value()
             
->>>>>>> 32fcff220c1d6341d94b8697e716d068e46c6b5f
             if not validar_campo(nome):
                 messages.error(request,"Nome contém caracteres inválidos")
                 return redirect('cadastro')
