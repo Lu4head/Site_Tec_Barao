@@ -40,10 +40,6 @@ def cadastro(request):
                 return redirect('cadastro') 
                     
             nome = form['nome_cadastro'].value()
-
-            if DIM_Usuario.objects.filter(Nome_USUARIO=nome).exists():
-                messages.error(request,"Já há um usuário cadastrado com este nome.")
-                return redirect('cadastro')
             
             if not validar_campo(nome):
                  messages.error(request,"Nome contém caracteres inválidos")

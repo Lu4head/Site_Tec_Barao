@@ -31,6 +31,7 @@ class DIM_Produto (models.Model):
 
     def __str__(self):
         return self.Nome_PRODUTO
+    
 
 class DIM_Fornecedor (models.Model):
     Nome_FORNECEDOR = models.CharField(max_length=100, null= False, blank= False, default="", verbose_name= "Nome do fornecedor")
