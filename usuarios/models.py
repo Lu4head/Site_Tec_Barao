@@ -1,6 +1,9 @@
 from django.db import models
 from datetime import datetime
 from django.utils import timezone
+from django.contrib.auth.models import User
+
+
 
 
 
@@ -49,9 +52,10 @@ class DIM_Usuario(models.Model):
     Curso_USUARIO = models.CharField(max_length=50, choices=cursos, default="", verbose_name="Curso do usuario")
     Unidade_USUARIO = models.CharField(max_length=50, choices=unidades, default="", verbose_name="Unidade de ensino")
     Cidade_USUARIO = models.CharField(max_length=100, null=False, blank=False, default="", verbose_name="Cidade do usuario")
-    Email_USUARIO  = models.EmailField(max_length=254, null=False, blank=False, default="", unique=True, verbose_name="E-mail do usuario")
-    Telefone_USUARIO = models.CharField(max_length=20, null=False, blank=False, unique=True, verbose_name="Telefone do usuario", default="")
+    Email_USUARIO  = models.EmailField(max_length=254, null=True, blank=True, default="", verbose_name="E-mail do usuario")
+    Telefone_USUARIO = models.CharField(max_length=20, null=True, blank=True, verbose_name="Telefone do usuario", default="")
     Senha_USUARIO  = models.CharField(max_length=50, verbose_name="Senha do usuario", default="")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='dim_usuario')
 
     class Meta:
         verbose_name = "Usuario_aplicação"

@@ -3,8 +3,11 @@
 <header>
   <img id="img1" src="{% static '/assets/img/letra.png' %}" alt="picletra">
   <a href="{% url 'cart' %}" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a>
-  <a href="{% url 'login' %}" class="login-icon"><i class="fa-solid fa-user"></i></a>
-  <a href="{% url 'login' %}" class="login-icon"><i class="fa-solid fa-user"></i></a>
+  {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}" class="login-icon"><i class="fa-solid fa-user"></i></a>
+  {% else %}
+    <a href="{% url 'login' %}" class="login-icon"><i class="fa-solid fa-user"></i></a>
+  {% endif %}
   <a href="{% url 'index' %}" class="home-icon"><i class="fa-solid fa-house"></i></a>
   <img id="img2" src="{% static '/assets/img/logoteste.png' %}" alt="picheader">
 </header>
