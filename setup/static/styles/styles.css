@@ -10,7 +10,7 @@ body {
 
 header {
   background-color: rgb(254, 215, 5);
-  padding: 20px;
+  padding: 1.5rem;
   text-align: center;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -24,7 +24,7 @@ header h1 {
 }
 
 #img1{
-  max-width: 300px;
+  max-width: 20rem;
 }
 
 #img2 {
@@ -40,7 +40,7 @@ header h1 {
 .container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-between; 
   padding: 20px;
   max-width: 800px; /* define a largura máxima do container para onecessário */
   margin: 0 auto;
@@ -147,39 +147,21 @@ header h1 {
   position: absolute;
 }
 
-@media screen and (max-width: 414px) {
-  #img1 {
-    width: 50%;
-  }
-  .cart-icon {
-    top: 5rem;
-    right: 0rem;
-  }
-  .login-icon {
-    top: 5rem;
-    right: 2rem;
-  }
-  .home-icon {
-    top: 5rem;
-    right: 3.8rem;
-  }
-}
-
 /* Media queries para celular iphone xr+ samsung a51/71 */
 @media screen and (max-width: 576px) {
   #img1 {
     width: 50%;
   }
   .cart-icon {
-    top: 4.5rem;
+    top: 4.7rem;
     right: 0rem;
   }
   .login-icon {
-    top: 4.5rem;
+    top: 4.7rem;
     right: 2rem;
   }
   .home-icon {
-    top: 4.5rem;
+    top: 4.7rem;
     right: 3.8rem;
   }
 }
