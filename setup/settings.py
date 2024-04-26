@@ -18,7 +18,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
-
+# Define as aplicações instaladas, sempre que criar uma nova aplicação ela deve ser adicionada aqui.
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,7 +89,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# Internacionalização
 
 LANGUAGE_CODE = 'pt-br'
 
@@ -101,6 +101,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+# Define diretórios para arquivos estáticos = arquivos .css, .js, imagens, audios....
 
 STATIC_URL = 'static/'
 
@@ -112,6 +113,7 @@ STATIC_ROOT = os.path.join(BASE_DIR , 'static')
 
 
 # Midia files
+# Definie diretórios bases para arquivos de salvamento de midia pela sua aplicação
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -120,6 +122,8 @@ MEDIA_URL = '/media/'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Define tags que serão utilizadas pela classe MESSAGE
 MESSAGE_TAGS = {
     messages.ERROR: 'error',
     messages.SUCCESS: 'success'
