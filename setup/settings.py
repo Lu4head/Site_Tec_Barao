@@ -127,7 +127,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Define tags que serão utilizadas pela classe MESSAGE
 MESSAGE_TAGS = {
     messages.ERROR: 'error',
-    messages.SUCCESS: 'success'
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
 }
 
 # Configurações de aparências da tela de admin (JAZZMIN)
@@ -147,13 +150,14 @@ JAZZMIN_SETTINGS = {
     # Links to put along the top menu
     "topmenu_links": [
         # Url that gets reversed (Permissions can be added)
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Admin",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Home",  "url": "index", "permissions": ""},
+        {"name": "Dashboards",  "url": "index", "permissions": ""},
         # model admin to link to (Permissions checked against model)
-        {"model": "auth.User"},
-        {"model": "usuarios.models.DIM_Produtos"},
+        #{"model": "auth.User"},
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "site_vendas"},
-        {"app": "usuarios"}
+        #{"app": "site_vendas"},
+        #{"app": "usuarios"}
     ],
 
     #############
