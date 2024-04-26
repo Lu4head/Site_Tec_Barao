@@ -13,9 +13,6 @@ Site criado para realizar a venda dos kits academicos, como blusas, moletons, ab
 
 <br>
 
-<p align="center">
-  <img alt="LinkHubImage" src=".github/LinkHub.png" width="100%">
-</p>
 
 ## 🚀 Tecnologias
 
