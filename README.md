@@ -34,16 +34,16 @@ O [Site da Atlética de Tecnologia](https://github.com/Lu4head/Site_Tec_Barao.gi
 
 Passo a passo para utilizar o repositório:
 
-Fazer download do python caso ainda não o tenha
-Clonar repositório para uma pasta vazia de seu sistema
-Abrir repositório em uma IDE (vs code)
-Linkar ele com este repositório online digitando no terminal: git remote add upstream https://github.com/Lu4head/Site_Tec_Barao.git
-Criar um ambiente virtual dentro do repositório digitando no terminal: python -m venv venv
-Alterar seu terminal para dentro do ambiente virtual criado digitando no terminal: ./venv/Scripts/activate
-Instalar as dependências digitando no terminal: pip install -r requirements.txt
-No diretório base onde está o repositório criar um arquivo .env com a key que eu passar pra vocês
-Subir banco de dados digitando no terminal: python manage.py migrate
-Para dar RUN no projeto em sua máquina digitar no terminal: python manage.py runserver
+Fazer download do python caso ainda não o tenha <br>
+Clonar repositório para uma pasta vazia de seu sistema <br>
+Abrir repositório em uma IDE (vs code) <br>
+Linkar ele com este repositório online digitando no terminal: git remote add upstream https://github.com/Lu4head/Site_Tec_Barao.git <br>
+Criar um ambiente virtual dentro do repositório digitando no terminal: python -m venv venv <br>
+Alterar seu terminal para dentro do ambiente virtual criado digitando no terminal: ./venv/Scripts/activate  <br>
+Instalar as dependências digitando no terminal: pip install -r requirements.txt <br>
+No diretório base onde está o repositório criar um arquivo .env com a key que eu passar pra vocês  <br>
+Subir banco de dados digitando no terminal: python manage.py migrate  <br>
+Para dar RUN no projeto em sua máquina digitar no terminal: python manage.py runserver  <br>
 
 
 
