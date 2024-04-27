@@ -21,7 +21,7 @@
           </select>
           <button type="submit" class="btn-add-cart">Adicionar ao carrinho</button> {% endcomment %}
           {% include 'partials/_alert.html' %}
-          {% for field in form.visible_fields %}
+          {% for field in form %}
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}
           {% endfor %}

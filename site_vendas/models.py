@@ -8,9 +8,14 @@ from django.db import models
 class DIM_Produto (models.Model):
 # Modelo/Classe que define a tabela de Produtos no banco de dados
 # tipo_do_produto = Dicionário que define todos os tipos de produtos existentes que será utilizada para preenchimento do campo  Tipo_PRODUTO do tipo choices.
-    tipo_do_produto = [("vestuario", "Vestuário"),
-                     ("caneca", "Caneca")]
+    tipo_do_produto = [("camiseta", "Camiseta"),
+                     ("caneca", "Caneca"),
+                     ("blusa","Blusa"),
+                     ("tirante","Tirante"),
+                     ("short","Short"),
+                     ]
     
+
     Nome_PRODUTO = models.CharField(max_length= 100, null = False, blank= False, default= "",unique=True ,verbose_name= "Nome do produto")
     Descricao_PRODUTO = models.CharField(max_length= 300, verbose_name="Descrição do produto", default= "")
     Tipo_PRODUTO = models.CharField(max_length= 50, choices= tipo_do_produto, verbose_name="Tipo de produto", default="")
@@ -19,7 +24,8 @@ class DIM_Produto (models.Model):
     Preco_venda_PRODUTO = models.DecimalField(max_digits= 2, decimal_places= 0, null= True, blank= False, verbose_name="Preço de venda do produto",default=0)
     Produto_ativo_PRODUTO = models.BooleanField(default= False)
     Leedtime_PRODUTO = models.DecimalField(max_digits= 2, decimal_places= 0, verbose_name="Tempo medio de espera do produto", null= True,blank=False)
-    Imagem_PRODUTO = models.ImageField(upload_to="fotos/", default= "") 
+    Imagem_PRODUTO = models.ImageField(upload_to="fotos/", default= "")
+
 
     class Meta:
     # Define características extras da classe não relacionadas diretamente aos objetos no banco, como nome de exibição da classe, nome da tabela no banco e etc...

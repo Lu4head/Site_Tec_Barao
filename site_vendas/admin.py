@@ -1,6 +1,5 @@
 from django.contrib import admin
 from site_vendas.models import DIM_Fornecedor, DIM_Produto , FAT_pedido_compra , FAT_item_nota
-
 # Exibição e controle dos produtos na pág de admin
 class ListaProdutos(admin.ModelAdmin):
     list_display = ("id","Nome_PRODUTO","Tipo_PRODUTO","Preco_produto","Produto_ativo_PRODUTO") # Quais campos serão exibidos
