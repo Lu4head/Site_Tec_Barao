@@ -1,6 +1,6 @@
 from re import match
 
-def validar_campo(campo):
+def validar_campo(campo): # Valida campos se este possuem apenas caractéres válidos
     # Define a expressão regular para permitir apenas letras, espaços e caracteres especiais comuns
     padrao = r'^[a-zA-ZáéíóúÁÉÍÓÚâêîôÂÊÎÔãõÃÕçÇ\s\-\.]+$'
     

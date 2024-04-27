@@ -11,7 +11,8 @@ from django.db import models
 
 
 class DIM_Produto (models.Model):
-
+# Modelo/Classe que define a tabela de Produtos no banco de dados
+# tipo_do_produto = Dicionário que define todos os tipos de produtos existentes que será utilizada para preenchimento do campo  Tipo_PRODUTO do tipo choices.
     tipo_do_produto = [("vestuario", "Vestuário"),
                      ("caneca", "Caneca")]
     
@@ -26,11 +27,12 @@ class DIM_Produto (models.Model):
     Imagem_PRODUTO = models.ImageField(upload_to="fotos/", default= "") 
 
     class Meta:
-        verbose_name = "Produto"
-        verbose_name_plural = "Produtos"
+    # Define características extras da classe não relacionadas diretamente aos objetos no banco, como nome de exibição da classe, nome da tabela no banco e etc...
+        verbose_name = "Produto" # Nome de exibição da classe caso seja singular
+        verbose_name_plural = "Produtos" # Nome de exibição da classe caso seja plural
 
     def __str__(self):
-        return self.Nome_PRODUTO
+        return self.Nome_PRODUTO # O que deve ser exibido ao printar um objeto dessa classe
     
 
 class DIM_Fornecedor (models.Model):
@@ -54,7 +56,7 @@ class FAT_venda (models.Model):
 
 
 class FAT_pedido_compra (models.Model):
-    Id_ADM = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    Id_ADM = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # ID da conta administrativa que liberou o pedido da compra
     Id_PRODUTO = models.ForeignKey(DIM_Produto, on_delete=models.CASCADE, default="")
     Id_FORNECEDOR = models.ForeignKey(DIM_Fornecedor, on_delete= models.CASCADE)
     Qtd_PEDIDO = models.DecimalField(max_digits= 2, decimal_places=0, null= True,blank=False, verbose_name="Quantidade de itens")
