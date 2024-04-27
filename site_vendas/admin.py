@@ -1,5 +1,5 @@
 from django.contrib import admin
-from site_vendas.models import DIM_Fornecedor, DIM_Produto , FAT_pedido_compra , FAT_venda
+from site_vendas.models import DIM_Fornecedor, DIM_Produto , FAT_pedido_compra , FAT_item_nota
 
 # Exibição e controle dos produtos na pág de admin
 class ListaProdutos(admin.ModelAdmin):
@@ -12,11 +12,11 @@ class ListaProdutos(admin.ModelAdmin):
 
 admin.site.register(DIM_Produto, ListaProdutos)
 
-class ListaPedidos(admin.ModelAdmin):
-    list_display = ("id","Data_PEDIDO","Data_chegada_PEDIDO")
-    list_display_links = ("id",)
-    search_fields = ("Data_Pedido",)
-    list_filter = ("Data_PEDIDO","Data_chegada_PEDIDO","Id_FORNECEDOR","Id_PRODUTO","Id_ADM")
-    list_per_page = 10
+# class ListaPedidos(admin.ModelAdmin):
+#     list_display = ("id","Data_PEDIDO","Data_chegada_PEDIDO")
+#     list_display_links = ("id",)
+#     search_fields = ("Data_Pedido",)
+#     list_filter = ("Data_PEDIDO","Data_chegada_PEDIDO","Id_FORNECEDOR","Id_PRODUTO","Id_ADM")
+#     list_per_page = 10
 
-admin.site.register(FAT_pedido_compra, ListaPedidos)
+# admin.site.register(FAT_pedido_compra, ListaPedidos)

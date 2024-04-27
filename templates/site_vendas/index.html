@@ -6,7 +6,7 @@
     <div class="carousel">
       {% if cards %}
       {% for produto in cards %}
-      <a href="{% url 'produto' produto.id %}">
+      <a href="{% url 'produto' produto.Nome_PRODUTO %}">
       <div class="product">
           {% if produto.Imagem_PRODUTO == "" or produto.Imagem_PRODUTO == null %}
           <img src="{% static '/assets/img/not-found.png' %}" alt="Product 1">
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div id="mais-pro">
+  {% comment %} <div id="mais-pro">
     <h2 class="container">Mais produtos</h2>
 </div>
   {% if cards %}
@@ -46,7 +46,7 @@
   <div class="product">
     <p>Produtos não encontrados</p>
   </div>
-  {% endif %}
+  {% endif %} {% endcomment %}
   {% if user.is_authenticated %}
     <p>Olá, {{ user.first_name }}! Você está logado.</p>
 {% endif %}

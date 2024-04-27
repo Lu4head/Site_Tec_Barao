@@ -5,18 +5,13 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 
-
-
-
-
-
 class DIM_Produto (models.Model):
 # Modelo/Classe que define a tabela de Produtos no banco de dados
 # tipo_do_produto = Dicionário que define todos os tipos de produtos existentes que será utilizada para preenchimento do campo  Tipo_PRODUTO do tipo choices.
     tipo_do_produto = [("vestuario", "Vestuário"),
                      ("caneca", "Caneca")]
     
-    Nome_PRODUTO = models.CharField(max_length= 100, null = False, blank= False, default= "", verbose_name= "Nome do produto")
+    Nome_PRODUTO = models.CharField(max_length= 100, null = False, blank= False, default= "",unique=True ,verbose_name= "Nome do produto")
     Descricao_PRODUTO = models.CharField(max_length= 300, verbose_name="Descrição do produto", default= "")
     Tipo_PRODUTO = models.CharField(max_length= 50, choices= tipo_do_produto, verbose_name="Tipo de produto", default="")
     Preco_produto = models.DecimalField(max_digits= 6, decimal_places= 2, null= True, blank= False, verbose_name="Preço unitario do produto")
@@ -46,15 +41,26 @@ class DIM_Fornecedor (models.Model):
     def __str__(self):
         return self.Nome_FORNECEDOR
 
-class FAT_venda (models.Model):
+
+class FAT_Nota(models.Model):
+    Valor_total_nota = models.DecimalField(max_digits= 6, decimal_places=2, null=True,blank=True, verbose_name="Total da venda")
+    Data_VENDA = models.DateField(verbose_name= "Data da venda",default=timezone.now)
+
+class FAT_item_nota (models.Model):
+    Nota_fiscal = models.ForeignKey(FAT_Nota, on_delete= models.CASCADE)
     Id_USUARIO = models.ForeignKey(DIM_Usuario, on_delete= models.CASCADE, default='')
     Id_PRODUTO = models.ForeignKey(DIM_Produto, on_delete=models.CASCADE)
     Id_FORNECEDOR = models.ForeignKey(DIM_Fornecedor, on_delete=models.CASCADE)
-    Qtd_VENDA = models.IntegerField(null= False, verbose_name="Quantidade de venda",default=0)
-    Total_VENDA = models.DecimalField(max_digits= 6, decimal_places=2, null= True,blank=False, verbose_name="Total da venda")
-    Data_VENDA = models.DateField(verbose_name= "Data da venda",default=timezone.now)
+    Qtd_item = models.IntegerField(null= False, verbose_name="Quantidade de venda",default=1)
+    Valor_total_item = models.DecimalField(max_digits= 6, decimal_places=2, null= True,blank=False, verbose_name="Valor total por produto")
+    Personalizacao_1 = models.CharField(max_length=30, null=True,blank= True)
+    Personalizacao_2 = models.CharField(max_length=30, null=True,blank= True)
+    Personalizacao_3 = models.CharField(max_length=30, null=True,blank= True)
 
-
+    
+    def calcula_valor_total(self): # Vai virar um save()
+        return self.Qtd_item * self.Id_PRODUTO.Preco_produto
+  
 class FAT_pedido_compra (models.Model):
     Id_ADM = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # ID da conta administrativa que liberou o pedido da compra
     Id_PRODUTO = models.ForeignKey(DIM_Produto, on_delete=models.CASCADE, default="")
