@@ -6,6 +6,7 @@ body {
   background-color: #333;
   color: #fff;
   z-index: 2;
+  padding-bottom: 60px;
 }
 
 header {
@@ -45,6 +46,7 @@ header h1 {
   max-width: 800px; /* define a largura máxima do container para onecessário */
   margin: 0 auto;
   z-index: 6;
+  
 }
 
 .container h2{
@@ -54,17 +56,11 @@ header h1 {
 .products {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between; /* Alterado para space-between */
   z-index: 5;
 }
 
-.caneca{
-  padding-top: 10px;
-  z-index: 5;
-}
-
-.product,
-.cart {
+.product{
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
@@ -73,6 +69,7 @@ header h1 {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   z-index: 5;
 }
+
 
 .product-image img {
   width: 100%;
@@ -91,29 +88,10 @@ header h1 {
   z-index: 5;
 }
 
-.product:hover,
-.cart:hover {
+.product:hover{
   transform: scale(1.05);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 5;
-}
-
-.cart {
-  flex-basis: 100%; /* Largura total */
-  z-index: 5; 
-}
-
-.cart h2 {
-  margin-top: 0;
-  color: black;
-}
-
-.cart-items li {
-  padding: 10px;
-}
-
-.checkout {
-  width: 100%;
 }
 
 .cart-icon {
@@ -435,10 +413,15 @@ a.cadastro_form{
 }
 
 footer {
+  position: fixed; /* Torna o footer fixo */
+  bottom: 0; /* Coloca o footer no fundo da tela */
+  width: 100%; /* Define a largura total */
   background-color: rgb(254, 215, 5);
   padding: 20px;
   text-align: center;
+  z-index: 999; /* Certifica-se de que o footer esteja acima de outros elementos */
 }
+
 
 .footer-container {
   max-width: 800px;
@@ -489,5 +472,37 @@ th, td {
 }
 th {
   background-color: rgb(254, 215, 5);
+}
+
+/* Estilos CSS adicionais para o botão e opções de tamanho */
+/* Estilos CSS adicionais para o botão e opções de tamanho */
+.btn-add-cart {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#size {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+/* Adicionando estilos para a página de produto */
+.realproduto {
+  display: flex;
+}
+
+.prodinfo {
+  flex: 1;
+  padding-right: 20px; /* Espaçamento entre a imagem e as informações */
+}
+
+#imgprod {
+  max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
 }
 

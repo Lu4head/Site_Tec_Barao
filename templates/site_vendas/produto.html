@@ -3,7 +3,6 @@
 {% block content%}
   <div class="pagprod">
     <div class="realproduto">
-      <img id="imgprod" src="{{ produto.Imagem_PRODUTO.url }}" alt="imgprod">
       <div class="prodinfo">
         <h2>{{ produto.Nome_PRODUTO }}</h2>
 
@@ -12,9 +11,19 @@
 
         <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>
 
+        <form method="post" action="">
+          {% csrf_token %}
+          <label for="size">Selecione o tamanho:</label>
+          <select id="size" name="size">
+            <option value="P">P</option>
+            <option value="M">M</option>
+            <option value="G">G</option>
+          </select>
+          <button type="submit" class="btn-add-cart">Adicionar ao carrinho</button>
+        </form>
+
       </div>
+      <img id="imgprod" src="{{ produto.Imagem_PRODUTO.url }}" alt="imgprod">
     </div>
   </div>
-  </div>
-
 {% endblock %}

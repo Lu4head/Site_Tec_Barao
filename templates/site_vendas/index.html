@@ -28,14 +28,19 @@
   </div>
 
   <div id="mais-pro">
-    <h2 class="container">Mais produtos</h2>
+    <h2 class="container">Nossos produtos:</h2>
 </div>
   {% if cards %}
   {% for produto in cards %}
   <div class="container">
     <div class="products">
       <div class="product">
+        {% if produto.Imagem_PRODUTO == "" or produto.Imagem_PRODUTO == null %}
+        <img src="{% static '/assets/img/not-found.png' %}" alt="Product 1">
+        {% else %}
         <h3>{{ produto.Nome_PRODUTO }}</h3>
+        <img src="{{ produto.Imagem_PRODUTO.url }}" alt="Product 1">
+        {% endif %}
         <p>{{ produto.Descricao_PRODUTO }}</p>
         <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>
       </div>
