@@ -11,15 +11,21 @@
 
         <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>
 
-        <form method="post" action="">
+        <form method="POST" action="#">
           {% csrf_token %}
-          <label for="size">Selecione o tamanho:</label>
+          {% comment %} <label for="size">Selecione o tamanho:</label>
           <select id="size" name="size">
             <option value="P">P</option>
             <option value="M">M</option>
             <option value="G">G</option>
           </select>
-          <button type="submit" class="btn-add-cart">Adicionar ao carrinho</button>
+          <button type="submit" class="btn-add-cart">Adicionar ao carrinho</button> {% endcomment %}
+          {% include 'partials/_alert.html' %}
+          {% for field in form.visible_fields %}
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            {{field}}
+          {% endfor %}
+          <input class="carrinho_form btn-add-cart" type="submit" value="Adicionar ao carrinho">
         </form>
 
       </div>
