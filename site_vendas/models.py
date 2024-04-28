@@ -62,6 +62,9 @@ class FAT_item_nota (models.Model):
     Personalizacao_2 = models.CharField(max_length=30, null=True,blank= True)
     Personalizacao_3 = models.CharField(max_length=30, null=True,blank= True)
 
+    class Meta:
+        verbose_name = "ItemPedido"
+        verbose_name_plural = "ItemPedidos" 
     
     def calcula_valor_total(self): # Vai virar um save()
         return self.Qtd_item * self.Id_PRODUTO.Preco_produto
