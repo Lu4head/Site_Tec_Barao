@@ -16,14 +16,14 @@ def produto(request, nome): # Define view para a página de produto
         case "camiseta":
             form = camisetaForms(request.POST)
             if form.is_valid():
-                if 'nota_fiscal_id' not in request.session:
-                    nota_fiscal = FAT_Nota.objects.create(
+                if 'nota_fiscal_id' not in request.session: # Verifica se já tem uma nota fiscal vinculada ao usuario na sessão
+                    nota_fiscal = FAT_Nota.objects.create( # Cria a nota
                         Valor_total_nota=0,
                         Data_VENDA=timezone.now()
                     )
                     request.session['nota_fiscal_id'] = nota_fiscal.id
                 else:
-                    nota_fiscal_id = request.session['nota_fiscal_id']
+                    nota_fiscal_id = request.session['nota_fiscal_id'] #recupera o a nota para usar mais tarde
                     nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
 
                 qtd_item = form.cleaned_data['quantidade']
@@ -155,8 +155,21 @@ def produto(request, nome): # Define view para a página de produto
 
 
 def cart(request): # Define view para a página do carrinho de compras
-    return render(request,'site_vendas/cart.html')
-
+    if 'nota_fiscal_id' in request.session: #Verifica se existe uma nota vinculada ao usuario da sessão
+        nota_fiscal_id = request.session['nota_fiscal_id'] #Recupera o id da nota
+        nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
+        items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
+        total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
+        
+        #para encerrar a nota fiscal
+        if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST:
+            # Remove a nota fiscal da sessão
+            del request.session['nota_fiscal_id']
+            # Redireciona para alguma página após encerrar a nota fiscal
+            return redirect('/')
+        return render(request, 'site_vendas/cart.html', {'items': items, 'total': total})
+    else:
+        return render(request, 'site_vendas/cart.html')
 
 
 

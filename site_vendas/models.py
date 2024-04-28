@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils import timezone
-from usuarios.models import DIM_Usuario
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class DIM_Produto (models.Model):
 # Modelo/Classe que define a tabela de Produtos no banco de dados
@@ -65,9 +66,23 @@ class FAT_item_nota (models.Model):
     class Meta:
         verbose_name = "ItemPedido"
         verbose_name_plural = "ItemPedidos" 
+        
+#Sinal para salvar valores na fat_nota    
+@receiver(post_save, sender=FAT_item_nota)
+def update_nota_total(sender, instance, **kwargs):
+    # Verifica se a instância é uma nova entrada ou uma atualização
+    if kwargs.get('created', False) or kwargs.get('update_fields', False):
+        # Obtém a nota fiscal associada ao item
+        nota_fiscal = instance.Nota_fiscal
+        # Obtém todos os itens associados à nota fiscal
+        items_nota = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal)
+        # Calcula o novo valor total da nota somando os valores totais de todos os itens
+        novo_valor_total = sum(item.Valor_total_item for item in items_nota)
+        # Atualiza o valor_total_nota na instância da FAT_Nota
+        nota_fiscal.Valor_total_nota = novo_valor_total
+        nota_fiscal.save()
     
-    def calcula_valor_total(self): # Vai virar um save()
-        return self.Qtd_item * self.Id_PRODUTO.Preco_produto
+
   
 class FAT_pedido_compra (models.Model):
     Id_ADM = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # ID da conta administrativa que liberou o pedido da compra

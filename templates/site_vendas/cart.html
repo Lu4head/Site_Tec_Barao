@@ -1,33 +1,40 @@
 {% extends 'site_vendas/base.html' %}
-{% load static %}
-{% block content%}
+{% block content %}
 <div class="container">
-  <table>
+  <table class="cart-table">
       <thead>
           <tr>
               <th>Produto</th>
-              <th>Preço</th>
+              <th>Preço unitário</th>
               <th>Quantidade</th>
               <th>Total</th>
           </tr>
       </thead>
       <tbody>
-          <!-- Aqui você pode adicionar linhas para cada produto no carrinho -->
+          <!-- Iterar sobre os itens do carrinho -->
+          {% for item in items %}
           <tr>
-              <td>Produto 1</td>
-              <td>R$ 50,00</td>
-              <td>1</td>
-              <td>R$ 50,00</td>
+              <td>{{ item.Id_PRODUTO.Nome_PRODUTO }}</td>
+              <td>R$ {{ item.Id_PRODUTO.Preco_produto|floatformat:"2" }}</td>
+              <td>{{ item.Qtd_item }}</td>
+              <td>R$ {{ item.Valor_total_item|floatformat:"2" }}</td>
           </tr>
+          {% endfor %}
+          <!-- Adicionar uma linha para o total -->
           <tr>
-              <td>Produto 2</td>
-              <td>R$ 30,00</td>
-              <td>2</td>
-              <td>R$ 60,00</td>
+              <td colspan="3"><strong>Total:</strong></td>
+              <td><strong>R$ {{ total|floatformat:"2" }}</strong></td>
           </tr>
-          <!-- Adicione mais linhas conforme necessário -->
+          <!-- Adicionar uma linha para o botão de encerrar -->
+          <tr>
+              <td colspan="4">
+                  <form action="{% url 'cart' %}" method="post">
+                      {% csrf_token %}
+                      <input type="submit" name="encerrar_nota_fiscal" value="Encerrar Nota Fiscal" class="checkout-btn">
+                  </form>
+              </td>
+          </tr>
       </tbody>
   </table>
-  <a href="#" class="checkout-btn">Finalizar Compra</a>
 </div>
 {% endblock %}
