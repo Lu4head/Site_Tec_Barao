@@ -14,6 +14,7 @@ def produto(request, nome): # Define view para a página de produto
     form = 0
     match produto.Tipo_PRODUTO:
         case "camiseta":
+            form = camisetaForms
             form = camisetaForms(request.POST)
             if form.is_valid():
                 if 'nota_fiscal_id' not in request.session: # Verifica se já tem uma nota fiscal vinculada ao usuario na sessão
@@ -112,7 +113,7 @@ def produto(request, nome): # Define view para a página de produto
 
                 qtd_item = form.cleaned_data['quantidade']
                 nome_personalizacao = form.cleaned_data['nome_personalizacao'] 
-                rede_social = form.cleaned_data['rede social']
+                rede_social = form.cleaned_data['rede_social']
 
                 item_nota = FAT_item_nota.objects.create(
                     Nota_fiscal=nota_fiscal,
