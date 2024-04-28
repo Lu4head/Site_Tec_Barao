@@ -75,8 +75,7 @@ class blusaForms(forms.Form):
         min_value=1,
         widget=forms.NumberInput(
             attrs={
-       
-         "class": "",
+                "class": "",
                 "id": "",
                 "placeholder": "1",
             }
@@ -99,8 +98,7 @@ class tiranteForms(forms.Form):
         min_value=1,
         widget=forms.NumberInput(
             attrs={
-       
-         "class": "",
+                "class": "",
                 "id": "",
                 "placeholder": "1",
             }
@@ -138,8 +136,7 @@ class shortForms(forms.Form):
         min_value=1,
         widget=forms.NumberInput(
             attrs={
-       
-         "class": "",
+                "class": "",
                 "id": "",
                 "placeholder": "1",
             }
@@ -150,5 +147,10 @@ class shortForms(forms.Form):
         label = "Tamanho:",
         required = True,
         choices = lista_tamanhos, # Possíveis escolhas importada do dicionário de cursos da Classe/Model DIM_Usuario definida em usuarios/models.py
-        widget = forms.Select(attrs={"class":"form-control"}) # Define campo de seleção de escolha
+        widget = forms.Select(
+            attrs={
+                "class":"form-control",
+                "id":"",
+                }
+        ) # Define campo de seleção de escolha
     )
