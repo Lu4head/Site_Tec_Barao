@@ -12,6 +12,7 @@
       </thead>
       <tbody>
           <!-- Iterar sobre os itens do carrinho -->
+          {% if items %}
           {% for item in items %}
           <tr>
               <td>{{ item.Id_PRODUTO.Nome_PRODUTO }}</td>
@@ -20,6 +21,11 @@
               <td>R$ {{ item.Valor_total_item|floatformat:"2" }}</td>
           </tr>
           {% endfor %}
+          {% else %}
+          <tr>
+          <td colspan="4" style="text-align:center;font-weight:bold"> Nenhum produto no carrinho </td>
+          </tr>
+          {% endif %}
           <!-- Adicionar uma linha para o total -->
           <tr>
               <td colspan="3"><strong>Total:</strong></td>
@@ -30,7 +36,7 @@
               <td colspan="4">
                   <form action="{% url 'cart' %}" method="post">
                       {% csrf_token %}
-                      <input type="submit" name="encerrar_nota_fiscal" value="Encerrar Nota Fiscal" class="checkout-btn">
+                      <input type="submit" name="encerrar_nota_fiscal" value="Finalizar Compra" class="checkout-btn">
                   </form>
               </td>
           </tr>

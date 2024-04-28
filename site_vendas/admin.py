@@ -1,5 +1,15 @@
 from django.contrib import admin
 from site_vendas.models import DIM_Fornecedor, DIM_Produto , FAT_pedido_compra , FAT_item_nota
+
+class ListaFornecedor(admin.ModelAdmin):
+    list_display = ("id","Nome_FORNECEDOR","Cnpj_FORNECEDOR","Cidade_FORNECEDOR","Estado_FORNECEDOR",)
+    list_display_links = ("id","Nome_FORNECEDOR",)
+    search_fields = ("Nome_FORNECEDOR",)
+    list_filter = ("Cidade_FORNECEDOR","Estado_FORNECEDOR",)
+    list_per_page = 10
+
+admin.site.register(DIM_Fornecedor, ListaFornecedor)
+
 # Exibição e controle dos produtos na pág de admin
 class ListaProdutos(admin.ModelAdmin):
     list_display = ("id","Nome_PRODUTO","Tipo_PRODUTO","Preco_produto","Produto_ativo_PRODUTO") # Quais campos serão exibidos
@@ -19,3 +29,4 @@ class ListaItemNota(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
     list_per_page = 50
 
 admin.site.register(FAT_item_nota, ListaItemNota)
+

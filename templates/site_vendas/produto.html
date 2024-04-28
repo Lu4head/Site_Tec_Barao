@@ -13,14 +13,6 @@
 
         <form method="POST" action="#">
           {% csrf_token %}
-          {% comment %} <label for="size">Selecione o tamanho:</label>
-          <select id="size" name="size">
-            <option value="P">P</option>
-            <option value="M">M</option>
-            <option value="G">G</option>
-          </select>
-          <button type="submit" class="btn-add-cart">Adicionar ao carrinho</button> {% endcomment %}
-          {% include 'partials/_alert.html' %}
           {% for field in form %}
             <label for="{{field.id_for_label}}">{{field.label}}</label>
             {{field}}

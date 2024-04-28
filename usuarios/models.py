@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 class DIM_Usuario(models.Model):
 # Modelo/Classe que define a tabela de Usuários da aplicação no banco de dados
     cursos = [ # Dicionário para utilização dos campos choices com todos os cursos do CBM
+        ("escolha_uma_opcao", "Escolha uma Opção"),
         ("administracao", "Administração"),
         ("arquitetura_e_urbanismo", "Arquitetura e Urbanismo"),
         ("biomedicina", "Biomedicina"),
@@ -37,6 +38,7 @@ class DIM_Usuario(models.Model):
         ]
 
     unidades = [ # Dicionário para utilização dos campos choices com todos as unidades do CBM
+        ("escolha_uma_opcao", "Escolha uma Opção"),
         ("unidade_arquitetura_e_urbanismo", "Unidade Arquitetura e Urbanismo"),
         ("unidade_central", "Unidade Central"),
         ("unidade_direito", "Unidade Direito"),
