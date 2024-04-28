@@ -11,11 +11,11 @@ class ListaProdutos(admin.ModelAdmin):
 
 admin.site.register(DIM_Produto, ListaProdutos)
 
-# class ListaPedidos(admin.ModelAdmin):
-#     list_display = ("id","Data_PEDIDO","Data_chegada_PEDIDO")
-#     list_display_links = ("id",)
-#     search_fields = ("Data_Pedido",)
-#     list_filter = ("Data_PEDIDO","Data_chegada_PEDIDO","Id_FORNECEDOR","Id_PRODUTO","Id_ADM")
-#     list_per_page = 10
+class ListaItemNota(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
+    list_display = ("id","Id_USUARIO","Id_PRODUTO","Nota_fiscal")
+    list_display_links = ("id",)
+    search_fields = ("Id_USUARIO","Id_PRODUTO","Nota_fiscal")
+    list_filter = ("Id_USUARIO","Id_PRODUTO","Nota_fiscal")
+    list_per_page = 50
 
-# admin.site.register(FAT_pedido_compra, ListaPedidos)
+admin.site.register(FAT_item_nota, ListaItemNota)
