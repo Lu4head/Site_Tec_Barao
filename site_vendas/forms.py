@@ -13,11 +13,12 @@ class camisetaForms(forms.Form):
         required=True,
         max_value=99,
         min_value=1,
+        initial= 1,
         widget=forms.NumberInput(
             attrs={
                 "class": "",
                 "id": "",
-                "placeholder": "1",
+                "value": "1",
             }
         )
     )
@@ -48,11 +49,12 @@ class canecaforms(forms.Form):
         required= True,
         max_value= 99,
         min_value=1,
+        initial= 1,
         widget= forms.NumberInput(
             attrs={
                     "class": "",
                     "id":"",
-                    "placeholder":"1",
+                    "value": "1",
             }
         )
     )
@@ -73,11 +75,12 @@ class blusaForms(forms.Form):
         required=True,
         max_value=99,
         min_value=1,
+        initial= 1,
         widget=forms.NumberInput(
             attrs={
                 "class": "",
                 "id": "",
-                "placeholder": "1",
+                "value": "1",
             }
         )
     )
@@ -96,11 +99,12 @@ class tiranteForms(forms.Form):
         required=True,
         max_value=99,
         min_value=1,
+        initial= 1,
         widget=forms.NumberInput(
             attrs={
                 "class": "",
                 "id": "",
-                "placeholder": "1",
+                "value": "1",
             }
         )
     )
@@ -134,11 +138,12 @@ class shortForms(forms.Form):
         required=True,
         max_value=99,
         min_value=1,
+        initial= 1,
         widget=forms.NumberInput(
             attrs={
                 "class": "",
                 "id": "",
-                "placeholder": "1",
+                "value": "1",
             }
         )
     )
