@@ -56,7 +56,7 @@ class canecaforms(forms.Form):
             }
         )
     )
-    nome = forms.CharField(
+    nome_personalizacao = forms.CharField(
         label="Nome escrito na caneca",
         max_length=30,
         widget=forms.TextInput(
@@ -105,7 +105,7 @@ class tiranteForms(forms.Form):
         )
     )
 
-    nome = forms.CharField(
+    nome_personalizacao = forms.CharField(
         label="Nome escrito no tirante",
         max_length=30,
         widget=forms.TextInput(

@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from site_vendas.models import DIM_Produto, FAT_item_nota
+from django.shortcuts import render, get_object_or_404, redirect
+from site_vendas.models import DIM_Produto, FAT_item_nota, FAT_Nota, DIM_Fornecedor
 from .forms import camisetaForms , canecaforms , tiranteForms , blusaForms , shortForms
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 def index(request): # Define view para a página home
     produtos = DIM_Produto.objects.filter(Produto_ativo_PRODUTO = True) # Lista objetos da classse DIM_Produto no banco filtrando pelos objetos que tenham o parâmetro Produto_ativo = True
@@ -12,46 +14,143 @@ def produto(request, nome): # Define view para a página de produto
     form = 0
     match produto.Tipo_PRODUTO:
         case "camiseta":
-            form = camisetaForms()
+            form = camisetaForms(request.POST)
+            if form.is_valid():
+                if 'nota_fiscal_id' not in request.session:
+                    nota_fiscal = FAT_Nota.objects.create(
+                        Valor_total_nota=0,
+                        Data_VENDA=timezone.now()
+                    )
+                    request.session['nota_fiscal_id'] = nota_fiscal.id
+                else:
+                    nota_fiscal_id = request.session['nota_fiscal_id']
+                    nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
+
+                qtd_item = form.cleaned_data['quantidade']
+                tamanho = form.cleaned_data['tamanho'] 
+                nome_personalizacao = form.cleaned_data['nome']
+
+                item_nota = FAT_item_nota.objects.create(
+                    Nota_fiscal=nota_fiscal,
+                    Id_USUARIO=request.user,
+                    Id_PRODUTO=produto,
+                    Qtd_item=qtd_item,
+                    Valor_total_item=produto.Preco_produto * qtd_item,
+                    Personalizacao_1=tamanho,
+                    Personalizacao_2=nome_personalizacao
+                )
+                return redirect('/')
+                    
+
         case "caneca":
             form = canecaforms()
+            form = canecaforms(request.POST)
+            if form.is_valid():
+                if 'nota_fiscal_id' not in request.session:
+                    nota_fiscal = FAT_Nota.objects.create(
+                        Valor_total_nota=0,
+                        Data_VENDA=timezone.now()
+                    )
+                    request.session['nota_fiscal_id'] = nota_fiscal.id
+                else:
+                    nota_fiscal_id = request.session['nota_fiscal_id']
+                    nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
+
+                qtd_item = form.cleaned_data['quantidade']
+                nome_personalizacao = form.cleaned_data['nome_personalizacao']
+
+                item_nota = FAT_item_nota.objects.create(
+                    Nota_fiscal=nota_fiscal,
+                    Id_USUARIO=request.user,
+                    Id_PRODUTO=produto,
+                    Qtd_item=qtd_item,
+                    Valor_total_item=produto.Preco_produto * qtd_item,
+                    Personalizacao_1=nome_personalizacao
+                    
+                )
+                return redirect('/')
         case "blusa":
             form = blusaForms()
+            form = blusaForms(request.POST)
+            if form.is_valid():
+                if 'nota_fiscal_id' not in request.session:
+                    nota_fiscal = FAT_Nota.objects.create(
+                        Valor_total_nota=0,
+                        Data_VENDA=timezone.now()
+                    )
+                    request.session['nota_fiscal_id'] = nota_fiscal.id
+                else:
+                    nota_fiscal_id = request.session['nota_fiscal_id']
+                    nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
+
+                qtd_item = form.cleaned_data['quantidade']
+                tamanho = form.cleaned_data['tamanho'] 
+
+                item_nota = FAT_item_nota.objects.create(
+                    Nota_fiscal=nota_fiscal,
+                    Id_USUARIO=request.user,
+                    Id_PRODUTO=produto,
+                    Qtd_item=qtd_item,
+                    Valor_total_item=produto.Preco_produto * qtd_item,
+                    Personalizacao_1=tamanho
+                    
+                )
+                return redirect('/')
         case "tirante":
             form = tiranteForms()
+            form = tiranteForms(request.POST)
+            if form.is_valid():
+                if 'nota_fiscal_id' not in request.session:
+                    nota_fiscal = FAT_Nota.objects.create(
+                        Valor_total_nota=0,
+                        Data_VENDA=timezone.now()
+                    )
+                    request.session['nota_fiscal_id'] = nota_fiscal.id
+                else:
+                    nota_fiscal_id = request.session['nota_fiscal_id']
+                    nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
+
+                qtd_item = form.cleaned_data['quantidade']
+                nome_personalizacao = form.cleaned_data['nome_personalizacao'] 
+                rede_social = form.cleaned_data['rede social']
+
+                item_nota = FAT_item_nota.objects.create(
+                    Nota_fiscal=nota_fiscal,
+                    Id_USUARIO=request.user,
+                    Id_PRODUTO=produto,
+                    Qtd_item=qtd_item,
+                    Valor_total_item=produto.Preco_produto * qtd_item,
+                    Personalizacao_1=nome_personalizacao,
+                    Personalizacao_2=rede_social
+                )
+                return redirect('/')
         case "short":
             form = shortForms()
+            form = shortForms(request.POST)
+            if form.is_valid():
+                if 'nota_fiscal_id' not in request.session:
+                    nota_fiscal = FAT_Nota.objects.create(
+                        Valor_total_nota=0,
+                        Data_VENDA=timezone.now()
+                    )
+                    request.session['nota_fiscal_id'] = nota_fiscal.id
+                else:
+                    nota_fiscal_id = request.session['nota_fiscal_id']
+                    nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
 
-    if request.method == 'POST':
-        match produto.Tipo_PRODUTO:
-            case "camiseta":
-                form = camisetaForms(request.POST)
-            case "caneca":
-                form = canecaforms(request.POST)
-            case "blusa":
-                form = blusaForms(request.POST)
-            case "tirante":
-                form = tiranteForms(request.POST)
-            case "short":
-                form = shortForms(request.POST)
+                qtd_item = form.cleaned_data['quantidade']
+                tamanho = form.cleaned_data['tamanho'] 
+             
 
-        if form.is_valid():
-            quantidade = form.cleaned_data.get('quantidade')
-            tamanho = form.cleaned_data.get('tamanho')
-            nome_estampa = form.cleaned_data.get('nome')
-            rede_social = form.cleaned_data.get('rede_social')
-        
-        fat_item_nota = FAT_item_nota.objects.create(
-            Nota_fiscal = None,
-            Id_USUARIO = None,
-            Id_PRODUTO = produto,
-            Id_FORNECEDOR = None,
-            Qtd_item = quantidade,
-            Valor_total_item = produto.Preco_produto * quantidade,
-            Personalizacao_1 = tamanho if tamanho else nome_estampa,
-            Personalizacao_2 = nome_estampa if (tamanho and nome_estampa) else rede_social,
-        )
-    
+                item_nota = FAT_item_nota.objects.create(
+                    Nota_fiscal=nota_fiscal,
+                    Id_USUARIO=request.user,
+                    Id_PRODUTO=produto,
+                    Qtd_item=qtd_item,
+                    Valor_total_item=produto.Preco_produto * qtd_item,
+                    Personalizacao_1=tamanho,
+                )
+                return redirect('/')
     return render(request,'site_vendas/produto.html',{'produto': produto, "form": form })
 
 

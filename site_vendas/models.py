@@ -54,9 +54,8 @@ class FAT_Nota(models.Model):
 
 class FAT_item_nota (models.Model):
     Nota_fiscal = models.ForeignKey(FAT_Nota, blank=True, null = True, on_delete= models.CASCADE, default='')
-    Id_USUARIO = models.ForeignKey(DIM_Usuario, blank=True, null = True, on_delete= models.CASCADE, default='')
+    Id_USUARIO = models.ForeignKey(User, blank=True, null = True, on_delete= models.CASCADE, default='')
     Id_PRODUTO = models.ForeignKey(DIM_Produto, blank=True, null = True, on_delete=models.CASCADE, default="")
-    Id_FORNECEDOR = models.ForeignKey(DIM_Fornecedor, blank=True, null = True, on_delete=models.CASCADE, default='')
     Qtd_item = models.IntegerField(null= False, verbose_name="Quantidade de venda",default=1)
     Valor_total_item = models.DecimalField(max_digits= 6, decimal_places=2, null= True,blank=False, verbose_name="Valor total por produto")
     Personalizacao_1 = models.CharField(max_length=30, null=True,blank= True)
