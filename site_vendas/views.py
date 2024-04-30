@@ -219,15 +219,15 @@ def cart(request): # Define view para a página do carrinho de compras
             
             if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
                 # Remove a nota fiscal da sessão
-                del request.session['nota_fiscal_id']
-                # Redireciona para alguma página após encerrar a nota fiscal
                 send_mail(
                     "Confirmação de Compra - Atlética Barão de Mauá",
-                    "Test",
+                    "{Email pra confirmar compra do site}",
                     f"{email_atletica}",
                     [f"{request.user.email}"],
                     fail_silently=True,                    
                 )
+                del request.session['nota_fiscal_id']
+                # Redireciona para alguma página após encerrar a nota fiscal
                 messages.success(request,f"Compra realizada com sucesso!")
                 return redirect('/')
             

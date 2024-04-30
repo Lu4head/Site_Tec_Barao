@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
+from decouple import config
 
 load_dotenv()
 
@@ -139,9 +140,9 @@ JAZZMIN_SETTINGS = {
     "site_title": "Atlética de Técnologia Barão de Mauá",
     "site_header": "Atlética Tec Barão",
     "site_brand": "Administração",
-    "site_logo": "assets\img\logoteste.png",
-    "login_logo": "assets\img\logo_login.png",
-    "login_logo_dark": "assets\img\logo_login.png",
+    "site_logo": "assets/img/logoteste.png",
+    "login_logo": "assets/img/logo_login.png",
+    "login_logo_dark": "assets/img/logo_login.png",
     "site_logo_classes": "img-circle",
     "welcome_sign": "Página Administrativa | Bem-vindo!",
     "copyright": "Atlética Tec Barão",
@@ -217,5 +218,14 @@ JAZZMIN_UI_TWEAKS = {
 
 # Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Apenas exibe Email no console
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # Envia o Email
+DEFAULT_FROM_EMAIL = "capygramador@gmail.com"
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Apenas exibe Email no console
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # Envia o Email
+
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST = config('EMAIL_HOST')
+
