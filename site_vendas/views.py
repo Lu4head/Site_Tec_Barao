@@ -181,6 +181,16 @@ def produto(request, nome_produto): # Define view para a página de produto
                 
     return render(request,'site_vendas/produto.html',{'produto': produto, "form": form })
 
+def update_nota_total(nota_fiscal):
+    # Obtém todos os itens associados à nota fiscal
+    items_nota = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal)
+    # Calcula o novo valor total da nota somando os valores totais de todos os itens
+    novo_valor_total = sum(item.Valor_total_item for item in items_nota) 
+    # Atualiza o valor_total_nota na instância da FAT_Nota
+    nota_fiscal.Valor_total_nota = novo_valor_total
+    nota_fiscal.save()
+
+
 
 def cart(request): # Define view para a página do carrinho de compras
     if request.user.is_authenticated:
@@ -201,12 +211,15 @@ def cart(request): # Define view para a página do carrinho de compras
                         if (action == "rm") and (produto_atual.Qtd_item > 0): produto_atual.Qtd_item -= 1 # Diminui quantidade do produto
                         produto_atual.Valor_total_item = float(produto_atual.Id_PRODUTO.Preco_produto) * float(produto_atual.Qtd_item) # Recalcula valor total
                         produto_atual.save() # Salva dados atualizados no banco
+                        update_nota_total(nota_fiscal)
                         return redirect('cart')
 
                 if action == "remover": # Remover Produto do Carrinho
                     item_nota = request.POST.get("product_id")
                     if FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).exists():
-                        FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).delete()
+                        item_remover = FAT_item_nota.objects.get(Nota_fiscal=nota_fiscal, Id_USUARIO=request.user.id, id=item_nota)
+                        item_remover.delete()
+                        update_nota_total(nota_fiscal)
                         return redirect('cart')
                     
             
