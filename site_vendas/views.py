@@ -189,9 +189,28 @@ def cart(request): # Define view para a página do carrinho de compras
             nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
             items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
             total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
+
             
-            #para encerrar a nota fiscal
-            if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST:
+            if request.method == 'POST' and 'action' in request.POST: 
+                action = request.POST.get('action')
+                if action == "add" or action == "rm":
+                    item_nota = request.POST.get("product_id")
+                    if FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).exists():
+                        produto_atual = FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).get()
+                        if (action == "add") and (produto_atual.Qtd_item < 99): produto_atual.Qtd_item += 1 # Adiciona quantidade do produto
+                        if (action == "rm") and (produto_atual.Qtd_item > 0): produto_atual.Qtd_item -= 1 # Diminui quantidade do produto
+                        produto_atual.Valor_total_item = float(produto_atual.Id_PRODUTO.Preco_produto) * float(produto_atual.Qtd_item) # Recalcula valor total
+                        produto_atual.save() # Salva dados atualizados no banco
+                        return redirect('cart')
+
+                if action == "remover": # Remover Produto do Carrinho
+                    item_nota = request.POST.get("product_id")
+                    if FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).exists():
+                        FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).delete()
+                        return redirect('cart')
+                    
+            
+            if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
                 # Remove a nota fiscal da sessão
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal
