@@ -7,6 +7,7 @@
               <th>Produto</th>
               <th>Preço unitário</th>
               <th>Quantidade</th>
+              <th></th>
               <th>Total</th>
           </tr>
       </thead>
@@ -15,26 +16,41 @@
           {% if items %}
           {% for item in items %}
           <tr>
-              <td>{{ item.Id_PRODUTO.Nome_PRODUTO }}</td>
-              <td>R$ {{ item.Id_PRODUTO.Preco_produto|floatformat:"2" }}</td>
-              <td>{{ item.Qtd_item }}</td>
-              <td>R$ {{ item.Valor_total_item|floatformat:"2" }}</td>
+            <td>{{ item.Id_PRODUTO.Nome_PRODUTO }}</td>
+            <td>R$ {{ item.Id_PRODUTO.Preco_produto|floatformat:"2" }}</td>
+            <td>
+                <form action="{% url 'cart' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ item.id }}">
+                    <button type="submit" name="action" value="add" class="btn btn-danger">+</button>
+                    <button type="submit" name="action" value="rm" class="btn btn-danger">-</button>
+                </form>
+                {{ item.Qtd_item }}
+            </td>
+            <td>
+                <form action="{% url 'cart' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ item.id }}">
+                    <button type="submit" name="action" value="remover" class="btn btn-danger">Remover</button>
+                </form>
+            </td>
+            <td>R$ {{ item.Valor_total_item|floatformat:"2" }}</td>
           </tr>
           {% endfor %}
           {% else %}
           <tr>
-          <td colspan="4" style="text-align:center;font-weight:bold"> Nenhum produto no carrinho </td>
+          <td colspan="5" style="text-align:center;font-weight:bold"> Nenhum produto no carrinho </td>
           </tr>
           {% endif %}
           <!-- Adicionar uma linha para o total -->
           <tr>
-              <td colspan="3"><strong>Total:</strong></td>
+              <td colspan="4"><strong>Total:</strong></td>
               <td><strong>R$ {{ total|floatformat:"2" }}</strong></td>
           </tr>
           <!-- Adicionar uma linha para o botão de encerrar -->
           <tr>
-              <td colspan="4">
-                  <form action="{% url 'cart' %}" method="post">
+              <td colspan="5">
+                  <form action="{% url 'cart' %}" method="POST">
                       {% csrf_token %}
                       <input type="submit" name="encerrar_nota_fiscal" value="Finalizar Compra" class="checkout-btn">
                   </form>

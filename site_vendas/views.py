@@ -181,6 +181,16 @@ def produto(request, nome_produto): # Define view para a página de produto
                 
     return render(request,'site_vendas/produto.html',{'produto': produto, "form": form })
 
+def update_nota_total(nota_fiscal):
+    # Obtém todos os itens associados à nota fiscal
+    items_nota = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal)
+    # Calcula o novo valor total da nota somando os valores totais de todos os itens
+    novo_valor_total = sum(item.Valor_total_item for item in items_nota) 
+    # Atualiza o valor_total_nota na instância da FAT_Nota
+    nota_fiscal.Valor_total_nota = novo_valor_total
+    nota_fiscal.save()
+
+
 
 def cart(request): # Define view para a página do carrinho de compras
     if request.user.is_authenticated:
@@ -189,9 +199,31 @@ def cart(request): # Define view para a página do carrinho de compras
             nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
             items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
             total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
+
             
-            #para encerrar a nota fiscal
-            if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST:
+            if request.method == 'POST' and 'action' in request.POST: 
+                action = request.POST.get('action')
+                if action == "add" or action == "rm":
+                    item_nota = request.POST.get("product_id")
+                    if FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).exists():
+                        produto_atual = FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).get()
+                        if (action == "add") and (produto_atual.Qtd_item < 99): produto_atual.Qtd_item += 1 # Adiciona quantidade do produto
+                        if (action == "rm") and (produto_atual.Qtd_item > 0): produto_atual.Qtd_item -= 1 # Diminui quantidade do produto
+                        produto_atual.Valor_total_item = float(produto_atual.Id_PRODUTO.Preco_produto) * float(produto_atual.Qtd_item) # Recalcula valor total
+                        produto_atual.save() # Salva dados atualizados no banco
+                        update_nota_total(nota_fiscal)
+                        return redirect('cart')
+
+                if action == "remover": # Remover Produto do Carrinho
+                    item_nota = request.POST.get("product_id")
+                    if FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).exists():
+                        item_remover = FAT_item_nota.objects.get(Nota_fiscal=nota_fiscal, Id_USUARIO=request.user.id, id=item_nota)
+                        item_remover.delete()
+                        update_nota_total(nota_fiscal)
+                        return redirect('cart')
+                    
+            
+            if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
                 # Remove a nota fiscal da sessão
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal
