@@ -214,3 +214,8 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     }
 }
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Apenas exibe Email no console
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # Envia o Email

@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
+from .utils import update_nota_total
 
 email_atletica = "luan.emanuelriar@gmail.com"
 
@@ -181,14 +182,7 @@ def produto(request, nome_produto): # Define view para a página de produto
                 
     return render(request,'site_vendas/produto.html',{'produto': produto, "form": form })
 
-def update_nota_total(nota_fiscal):
-    # Obtém todos os itens associados à nota fiscal
-    items_nota = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal)
-    # Calcula o novo valor total da nota somando os valores totais de todos os itens
-    novo_valor_total = sum(item.Valor_total_item for item in items_nota) 
-    # Atualiza o valor_total_nota na instância da FAT_Nota
-    nota_fiscal.Valor_total_nota = novo_valor_total
-    nota_fiscal.save()
+
 
 
 
