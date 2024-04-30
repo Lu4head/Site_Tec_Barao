@@ -6,7 +6,7 @@ body {
   background-color: #333;
   color: #fff;
   z-index: 2;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
 header {
@@ -38,26 +38,24 @@ header h1 {
 }
 
 
-.container {
-  display: flex;
+.testeteste{
+  display: inline-block;
   flex-wrap: wrap;
-  justify-content: space-between; 
-  padding: 20px;
-  max-width: 800px; /* define a largura máxima do container para onecessário */
+  z-index: 5;
+  align-items: center;
   margin: 0 auto;
-  z-index: 6;
-  
+  justify-content: center;
 }
 
-.container h2{
+#mais-pro h2{
+  margin-top: 4rem;
   z-index: 5;
+  text-align: center;
 }
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* Alterado para space-between */
-  z-index: 5;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .product{
@@ -505,4 +503,20 @@ th {
 #imgprod {
   max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
 }
+
+.notfound{
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  z-index: 5;
+  max-width: 15rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
 

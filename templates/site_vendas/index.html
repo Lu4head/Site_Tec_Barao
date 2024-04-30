@@ -1,39 +1,13 @@
 {% extends 'site_vendas/base.html' %}
 {% load static %}
 {% block content%}
-  <div class="container">
-    <h2>Mais Vendidos</h2>
-    <div class="carousel">
-      {% if cards %}
-      {% for produto in cards %}
-      <a href="{% url 'produto' produto.Nome_PRODUTO %}">
-      <div class="product">
-          {% if produto.Imagem_PRODUTO == "" or produto.Imagem_PRODUTO == null %}
-          <img src="{% static '/assets/img/not-found.png' %}" alt="Product 1">
-          {% else %}
-          <h3>{{ produto.Nome_PRODUTO }}</h3>
-          <img src="{{ produto.Imagem_PRODUTO.url }}" alt="Product 1">
-          {% endif %}
-          <p>{{ produto.Descricao_PRODUTO }}</p>
-          <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>
-        </div>
-      </a>
-      {% endfor %}
-      {% else %}
-      <div class="product">
-        <p>Produtos não encontrados</p>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-
   <div id="mais-pro">
-    <h2 class="container">Nossos produtos:</h2>
-</div>
+    <h2>Nossos produtos</h2>
+    </div>
   {% if cards %}
   {% for produto in cards %}
   <a href="{% url 'produto' produto.Nome_PRODUTO %}">
-  <div class="container">
+  <div class="testeteste">
     <div class="products">
       <div class="product">
         {% if produto.Imagem_PRODUTO == "" or produto.Imagem_PRODUTO == null %}
@@ -49,7 +23,7 @@
   </div>  
   {% endfor %}
   {% else %}
-  <div class="product">
+  <div class="notfound">
     <p>Produtos não encontrados</p>
   </div>
   {% endif %}
