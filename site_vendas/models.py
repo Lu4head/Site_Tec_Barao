@@ -58,6 +58,7 @@ class DIM_Produto (models.Model):
 class FAT_Nota(models.Model):
     Valor_total_nota = models.DecimalField(max_digits= 6, decimal_places=2, null=True,blank=True, verbose_name="Total da venda")
     Data_VENDA = models.DateField(verbose_name= "Data da venda",default=timezone.now)
+    Encerrada = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Nota Fiscal"

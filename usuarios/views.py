@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from site_vendas.models import FAT_Nota
 
 def login(request):
 # Caso formulário não seja preenchido corretamente usuário é direcionado de volta para tela de login
@@ -33,6 +34,11 @@ def login(request):
     return render(request, 'usuarios/login.html', {"form": form})
 
 def logout(request):
+    if 'nota_fiscal_id' in request.session:
+        nota_fiscal_id = request.session['nota_fiscal_id']
+        nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id)
+        if not nota_fiscal.Encerrada:
+            nota_fiscal.delete()
     auth_logout(request) # realiza logout do usuário
     messages.success(request, "logout realizado com sucesso")
     return redirect ('login') # redireciona para tela de login

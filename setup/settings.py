@@ -153,7 +153,7 @@ JAZZMIN_SETTINGS = {
         # Url that gets reversed (Permissions can be added)
         {"name": "Admin",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Home",  "url": "index", "permissions": ""},
-        {"name": "Dashboards",  "url": "index", "permissions": ""},
+        {"name": "Dashboards",  "url": "dashbora", "permissions": ["auth.view_user"]},
         # model admin to link to (Permissions checked against model)
         #{"model": "auth.User"},
         # App with dropdown menu to all its models pages (Permissions checked against models)
