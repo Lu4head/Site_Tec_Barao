@@ -221,10 +221,10 @@ def cart(request): # Define view para a página do carrinho de compras
                 # Remove a nota fiscal da sessão
                 send_mail(
                     "Confirmação de Compra - Atlética Barão de Mauá",
-                    "{Email pra confirmar compra do site}",
-                    f"{email_atletica}",
+                    "Email pra confirmar compra do site, se vc ta vendo isso o teste deu certo",
+                    "capygramadora@outlook.com",
                     [f"{request.user.email}"],
-                    fail_silently=True,                    
+                    fail_silently=False,                    
                 )
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal
