@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'site_vendas.apps.SiteVendasConfig',
-    'usuarios.apps.UsuariosConfig'
+    'usuarios.apps.UsuariosConfig',
+    'dashboards.apps.DashboardsConfig'
 ]
 
 MIDDLEWARE = [
@@ -153,7 +154,7 @@ JAZZMIN_SETTINGS = {
         # Url that gets reversed (Permissions can be added)
         {"name": "Admin",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Home",  "url": "index", "permissions": ""},
-        {"name": "Dashboards",  "url": "dashbora", "permissions": ["auth.view_user"]},
+        {"name": "Dashboards",  "url": "dashboards", "permissions": ["auth.view_user"]},
         # model admin to link to (Permissions checked against model)
         #{"model": "auth.User"},
         # App with dropdown menu to all its models pages (Permissions checked against models)
@@ -223,8 +224,8 @@ DEFAULT_FROM_EMAIL = "capygramador@gmail.com"
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Apenas exibe Email no console
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # Envia o Email
 
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST = "smtp.office365.com"

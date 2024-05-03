@@ -223,7 +223,7 @@ def cart(request): # Define view para a página do carrinho de compras
                     "Email pra confirmar compra do site, se vc ta vendo isso o teste deu certo",
                     "capygramadora@outlook.com",
                     [f"{request.user.email}"],
-                    fail_silently=True,                    
+                    fail_silently=False,                    
                 )
                 nota_fiscal.Encerrada = True
                 nota_fiscal.save()
