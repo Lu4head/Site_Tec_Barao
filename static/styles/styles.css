@@ -544,6 +544,15 @@ th {
   color: #fff;
 }
 
+.btn-add {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #43dc35;
+  color: #fff;
+}
+
 /* Estilo do total */
 .total-row td:first-child {
   text-align: right;
