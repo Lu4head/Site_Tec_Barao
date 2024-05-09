@@ -32,6 +32,7 @@ class camisetaForms(forms.Form):
 
     nome = forms.CharField(
         label="Nome escrito na estampa",
+        required= False,
         max_length=30,
         widget=forms.TextInput(
             attrs={
@@ -61,6 +62,7 @@ class canecaforms(forms.Form):
     nome_personalizacao = forms.CharField(
         label="Nome escrito na caneca",
         max_length=30,
+        required= False,
         widget=forms.TextInput(
             attrs={
                 "class":"form-control",
@@ -112,6 +114,7 @@ class tiranteForms(forms.Form):
     nome_personalizacao = forms.CharField(
         label="Nome escrito no tirante",
         max_length=30,
+        required= False,
         widget=forms.TextInput(
             attrs={
                 "class":"form-control",
