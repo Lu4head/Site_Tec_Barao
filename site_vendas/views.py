@@ -227,6 +227,10 @@ def cart(request): # Define view para a página do carrinho de compras
                 )
                 nota_fiscal.Encerrada = True
                 nota_fiscal.save()
+
+                # Quando o usuário concluir a compra deve ser incrementado no banco q tantos de certo produto foram vendidos
+                # quando chegar a tantos produtos vendidos o admin deve receber um email avisando para comprar um novo lote daquele produto
+
                 # Remove a nota fiscal da sessão
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal
