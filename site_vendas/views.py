@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
 from .utils import update_nota_total
+from django.core.mail import EmailMessage
+import qrcode
+import os
 
 email_atletica = "luan.emanuelriar@gmail.com"
 
@@ -193,8 +196,12 @@ def cart(request): # Define view para a página do carrinho de compras
             nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
             items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
             total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
-
+            chave_pix = "1234567890" # Chave Pix para pagamento
+            nome_dono_chave = "nome_do_dono" # Nome do dono da chave Pix
+            cpf_dono_chave = "12345678900" # CPF do dono da chave Pix
+            cidade_dono_chave = "Ribeirão Preto" # Cidade do dono da chave Pix
             
+
             if request.method == 'POST' and 'action' in request.POST: 
                 action = request.POST.get('action')
                 if action == "add" or action == "rm":
@@ -218,17 +225,39 @@ def cart(request): # Define view para a página do carrinho de compras
                     
             
             if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
-                send_mail(
-                    # No e-mail deve haver os produtos comprados, o valor total e o código pix para pagamento
+                qr_code = qrcode.make(f'00020101021226850014br.gov.bcb.pix0136{chave_pix}52040000530398654040{str(total).replace(".", "")}5802BR5913{nome_dono_chave}6008{cidade_dono_chave}6304AD38')
+                qr_code_file_name = f'qrcode{nota_fiscal_id}.png'
+                qr_code.save(qr_code_file_name)
+
+                corpo_email = "Confirmação de Compra - Atlética Barão de Mauá\n"
+
+                for item in FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal, Id_USUARIO=request.user.id):
+                    corpo_email += f"Produto: {item.Id_PRODUTO.Nome_PRODUTO}, Quantidade: {item.Qtd_item}, Preço: {(item.Id_PRODUTO.Preco_produto) * (item.Qtd_item)}\n"
+
+                # Adicionar o valor total e o código Pix ao corpo do e-mail
+                pix_code = f'00020101021226850014br.gov.bcb.pix0136{chave_pix}52040000530398654040{str(total).replace(".", "")}5802BR5913{nome_dono_chave}6008{cidade_dono_chave}6304AD38'
+                
+                corpo_email += f"\nValor Total: {total}\nCódigo Pix para pagamento: {pix_code}"
+
+                email = EmailMessage(
                     "Confirmação de Compra - Atlética Barão de Mauá",
-                    "Email pra confirmar compra do site, se vc ta vendo isso o teste deu certo",
+                    corpo_email,
                     "capygramadora@outlook.com",
                     [f"{request.user.email}"],
-                    fail_silently=False,                    
-                )
+                    )
+                
+                #Anexar o QR Code ao e-mail
+                email.attach_file(qr_code_file_name)
+
+                # Enviar o e-mail
+                email.send(fail_silently=False)
+
                 nota_fiscal.Encerrada = True
                 nota_fiscal.save()
 
+                # Deletar o QR Code após o envio do e-mail
+                os.remove(qr_code_file_name)
+                
                 # Quando o usuário concluir a compra deve ser incrementado no banco q tantos de certo produto foram vendidos
                 # quando chegar a tantos produtos vendidos o admin deve receber um email avisando para comprar um novo lote daquele produto
 
