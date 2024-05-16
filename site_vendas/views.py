@@ -219,6 +219,7 @@ def cart(request): # Define view para a página do carrinho de compras
             
             if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
                 send_mail(
+                    # No e-mail deve haver os produtos comprados, o valor total e o código pix para pagamento
                     "Confirmação de Compra - Atlética Barão de Mauá",
                     "Email pra confirmar compra do site, se vc ta vendo isso o teste deu certo",
                     "capygramadora@outlook.com",
