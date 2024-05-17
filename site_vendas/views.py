@@ -7,8 +7,9 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from .utils import update_nota_total
 from django.core.mail import EmailMessage
-import qrcode
 import os
+from .pixcodegen import Payload
+
 
 email_atletica = "luan.emanuelriar@gmail.com"
 
@@ -196,11 +197,9 @@ def cart(request): # Define view para a página do carrinho de compras
             nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
             items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
             total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
-            chave_pix = "1234567890" # Chave Pix para pagamento
-            nome_dono_chave = "nome_do_dono" # Nome do dono da chave Pix
-            cpf_dono_chave = "12345678900" # CPF do dono da chave Pix
-            cidade_dono_chave = "Ribeirão Preto" # Cidade do dono da chave Pix
-            
+            chave_pix = "+5516993561500" # Chave Pix para pagamento
+            nome_dono_chave = "LuanEmanuel"
+            cidade_dono_chave = "Brodowski"
 
             if request.method == 'POST' and 'action' in request.POST: 
                 action = request.POST.get('action')
@@ -225,9 +224,10 @@ def cart(request): # Define view para a página do carrinho de compras
                     
             
             if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
-                qr_code = qrcode.make(f'00020101021226850014br.gov.bcb.pix0136{chave_pix}52040000530398654040{str(total).replace(".", "")}5802BR5913{nome_dono_chave}6008{cidade_dono_chave}6304AD38')
-                qr_code_file_name = f'qrcode{nota_fiscal_id}.png'
-                qr_code.save(qr_code_file_name)
+                pix = Payload(nome_dono_chave, chave_pix, total, cidade_dono_chave, nota_fiscal.id)
+                pix.gerarPayload()
+                pix_code = pix.payload_completa
+                qr_code_file_name = f"{nota_fiscal.id}.png"
 
                 corpo_email = "Confirmação de Compra - Atlética Barão de Mauá\n"
 
@@ -235,7 +235,6 @@ def cart(request): # Define view para a página do carrinho de compras
                     corpo_email += f"Produto: {item.Id_PRODUTO.Nome_PRODUTO}, Quantidade: {item.Qtd_item}, Preço: {(item.Id_PRODUTO.Preco_produto) * (item.Qtd_item)}\n"
 
                 # Adicionar o valor total e o código Pix ao corpo do e-mail
-                pix_code = f'00020101021226850014br.gov.bcb.pix0136{chave_pix}52040000530398654040{str(total).replace(".", "")}5802BR5913{nome_dono_chave}6008{cidade_dono_chave}6304AD38'
                 
                 corpo_email += f"\nValor Total: {total}\nCódigo Pix para pagamento: {pix_code}"
 
