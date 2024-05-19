@@ -9,6 +9,7 @@ from .utils import update_nota_total
 from django.core.mail import EmailMessage
 import os
 from .pixcodegen import Payload
+from django.db.models import Sum
 
 
 email_atletica = "luan.emanuelriar@gmail.com"
@@ -247,7 +248,7 @@ def cart(request): # Define view para a página do carrinho de compras
                 email_usuario.attach_file(qr_code_file_name)
 
                 # Enviar o e-mail
-                email_usuario.send(fail_silently=False)
+                # email_usuario.send(fail_silently=False)
 
                 nota_fiscal.Encerrada = True
                 nota_fiscal.save()
@@ -257,26 +258,8 @@ def cart(request): # Define view para a página do carrinho de compras
                 
                 # Quando o usuário concluir a compra deve ser incrementado no banco q tantos de certo produto foram vendidos
                 # quando chegar a tantos produtos vendidos o admin deve receber um email avisando para comprar um novo lote daquele produto
-                def check_pending_lots():
-                    for item in FAT_item_nota.objects.filter(Lote_pendente = True):
-                        produto = item.Id_PRODUTO
-                        pendentes = FAT_item_nota.objects.filter(Id_PRODUTO=produto, Lote_pendente=True)
-                        if len(pendentes) >= produto.Lote_minimo:
-                            for pendente in pendentes:
-                                pendente.Lote_pendente = False
-                                pendente.save()
-                            send_email_to_admin(pendentes)
+                check_pending_lots()
 
-                def send_email_to_admin(produto):
-                    admin_email = "admin@example.com"
-                    subject = f"Pedido de novo lote para o produto {produto.Nome_PRODUTO}"
-                    message = f"O produto {produto.Nome_PRODUTO} atingiu o lote mínimo de vendas. Por favor, faça um novo pedido de lote."
-                    send_mail(subject, message, "noreply@example.com", [admin_email])
-
-                for item_lote in FAT_item_nota.objects.filter(Lote_pendente=True):
-                    for produto_lote in DIM_Produto.objects.filter:
-                        
-                      
                 # Remove a nota fiscal da sessão
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal
@@ -296,6 +279,20 @@ def cart(request): # Define view para a página do carrinho de compras
 
     return render(request, 'site_vendas/cart.html')
 
+def check_pending_lots():
+    for item in FAT_item_nota.objects.filter(Lote_pendente=True):
+        produto = item.Id_PRODUTO
+        pendentes = FAT_item_nota.objects.filter(Id_PRODUTO=produto, Lote_pendente=True)
+        qtd_total = sum(pendente.Qtd_item for pendente in pendentes)  # Soma total das quantidades de itens pendentes
+        if qtd_total >= produto.Lote_minimo_PRODUTO:
+            for pendente in pendentes:
+                pendente.Lote_pendente = False
+                pendente.save()
+            # enviar_email_para_admin(pendentes)
 
-
+# def enviar_email_para_admin(produto):
+#     email_admin = "gustavotduzzi@outlook.com"
+#     assunto = f"Solicitação de novo lote para o produto {produto.Nome_PRODUTO}"
+#     mensagem = f"O produto {produto.Nome_PRODUTO} atingiu o limite mínimo de vendas. Por favor, faça um novo pedido de lote."
+#     send_mail(assunto, mensagem, "capygramadora@outlook.com", [email_admin])
     
