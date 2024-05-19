@@ -12,6 +12,9 @@ from .pixcodegen import Payload
 
 
 email_atletica = "luan.emanuelriar@gmail.com"
+chave_pix = "+5516993561500"
+nome_dono_chave = "LuanEmanuel"
+cidade_dono_chave = "Brodowski"
 
 def index(request): # Define view para a página home
     produtos = DIM_Produto.objects.filter(Produto_ativo_PRODUTO = True) # Lista objetos da classse DIM_Produto no banco filtrando pelos objetos que tenham o parâmetro Produto_ativo = True
@@ -187,9 +190,6 @@ def produto(request, nome_produto): # Define view para a página de produto
     return render(request,'site_vendas/produto.html',{'produto': produto, "form": form })
 
 
-
-
-
 def cart(request): # Define view para a página do carrinho de compras
     if request.user.is_authenticated:
         if 'nota_fiscal_id' in request.session: #Verifica se existe uma nota vinculada ao usuario da sessão
@@ -197,9 +197,7 @@ def cart(request): # Define view para a página do carrinho de compras
             nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
             items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
             total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
-            chave_pix = "+5516993561500" # Chave Pix para pagamento
-            nome_dono_chave = "LuanEmanuel"
-            cidade_dono_chave = "Brodowski"
+            
 
             if request.method == 'POST' and 'action' in request.POST: 
                 action = request.POST.get('action')
@@ -229,27 +227,27 @@ def cart(request): # Define view para a página do carrinho de compras
                 pix_code = pix.payload_completa
                 qr_code_file_name = f"{nota_fiscal.id}.png"
 
-                corpo_email = "Confirmação de Compra - Atlética Barão de Mauá\n"
+                corpo_email_usuario = "Confirmação de Compra - Atlética Barão de Mauá\n"
 
                 for item in FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal, Id_USUARIO=request.user.id):
-                    corpo_email += f"Produto: {item.Id_PRODUTO.Nome_PRODUTO}, Quantidade: {item.Qtd_item}, Preço: {(item.Id_PRODUTO.Preco_produto) * (item.Qtd_item)}\n"
+                    corpo_email_usuario += f"Produto: {item.Id_PRODUTO.Nome_PRODUTO}, Quantidade: {item.Qtd_item}, Preço: {(item.Id_PRODUTO.Preco_produto) * (item.Qtd_item)}\n"
 
                 # Adicionar o valor total e o código Pix ao corpo do e-mail
                 
-                corpo_email += f"\nValor Total: {total}\nCódigo Pix para pagamento: {pix_code}"
+                corpo_email_usuario += f"\nValor Total: {total}\nCódigo Pix para pagamento: {pix_code}"
 
-                email = EmailMessage(
+                email_usuario = EmailMessage(
                     "Confirmação de Compra - Atlética Barão de Mauá",
-                    corpo_email,
+                    corpo_email_usuario,
                     "capygramadora@outlook.com",
                     [f"{request.user.email}"],
                     )
                 
                 #Anexar o QR Code ao e-mail
-                email.attach_file(qr_code_file_name)
+                email_usuario.attach_file(qr_code_file_name)
 
                 # Enviar o e-mail
-                email.send(fail_silently=False)
+                email_usuario.send(fail_silently=False)
 
                 nota_fiscal.Encerrada = True
                 nota_fiscal.save()
@@ -259,7 +257,26 @@ def cart(request): # Define view para a página do carrinho de compras
                 
                 # Quando o usuário concluir a compra deve ser incrementado no banco q tantos de certo produto foram vendidos
                 # quando chegar a tantos produtos vendidos o admin deve receber um email avisando para comprar um novo lote daquele produto
+                def check_pending_lots():
+                    for item in FAT_item_nota.objects.filter(Lote_pendente = True):
+                        produto = item.Id_PRODUTO
+                        pendentes = FAT_item_nota.objects.filter(Id_PRODUTO=produto, Lote_pendente=True)
+                        if len(pendentes) >= produto.Lote_minimo:
+                            for pendente in pendentes:
+                                pendente.Lote_pendente = False
+                                pendente.save()
+                            send_email_to_admin(pendentes)
 
+                def send_email_to_admin(produto):
+                    admin_email = "admin@example.com"
+                    subject = f"Pedido de novo lote para o produto {produto.Nome_PRODUTO}"
+                    message = f"O produto {produto.Nome_PRODUTO} atingiu o lote mínimo de vendas. Por favor, faça um novo pedido de lote."
+                    send_mail(subject, message, "noreply@example.com", [admin_email])
+
+                for item_lote in FAT_item_nota.objects.filter(Lote_pendente=True):
+                    for produto_lote in DIM_Produto.objects.filter:
+                        
+                      
                 # Remove a nota fiscal da sessão
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal

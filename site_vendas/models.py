@@ -73,6 +73,7 @@ class FAT_item_nota (models.Model):
     Personalizacao_1 = models.CharField(max_length=30, null=True,blank= True)
     Personalizacao_2 = models.CharField(max_length=30, null=True,blank= True)
     Personalizacao_3 = models.CharField(max_length=30, null=True,blank= True)
+    Lote_pendente = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "ItemPedido"
@@ -93,8 +94,6 @@ def update_nota_total(sender, instance, **kwargs):
         # Atualiza o valor_total_nota na instância da FAT_Nota
         nota_fiscal.Valor_total_nota = novo_valor_total
         nota_fiscal.save()
-    
-
   
 class FAT_pedido_compra (models.Model):
     Id_ADM = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # ID da conta administrativa que liberou o pedido da compra

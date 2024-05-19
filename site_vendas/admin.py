@@ -30,3 +30,11 @@ class ListaItemNota(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
 
 admin.site.register(FAT_item_nota, ListaItemNota)
 
+class ListaPedidoCompra(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
+    list_display = ("id","Id_FORNECEDOR","Id_PRODUTO","data_pedido")
+    list_display_links = ("id",)
+    search_fields = ("Id_FORNECEDOR","Id_PRODUTO","Qtd_item")
+    list_filter = ("Id_FORNECEDOR","Id_PRODUTO","Qtd_item")
+    list_per_page = 50
+
+admin.site.register(FAT_pedido_compra, ListaPedidoCompra)
