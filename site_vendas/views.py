@@ -257,24 +257,9 @@ def cart(request): # Define view para a página do carrinho de compras
                 
                 # Quando o usuário concluir a compra deve ser incrementado no banco q tantos de certo produto foram vendidos
                 # quando chegar a tantos produtos vendidos o admin deve receber um email avisando para comprar um novo lote daquele produto
-                def check_pending_lots():
-                    for item in FAT_item_nota.objects.filter(Lote_pendente = True):
-                        produto = item.Id_PRODUTO
-                        pendentes = FAT_item_nota.objects.filter(Id_PRODUTO=produto, Lote_pendente=True)
-                        if len(pendentes) >= produto.Lote_minimo:
-                            for pendente in pendentes:
-                                pendente.Lote_pendente = False
-                                pendente.save()
-                            send_email_to_admin(pendentes)
+                check_pending_lots()
+                
 
-                def send_email_to_admin(produto):
-                    admin_email = "admin@example.com"
-                    subject = f"Pedido de novo lote para o produto {produto.Nome_PRODUTO}"
-                    message = f"O produto {produto.Nome_PRODUTO} atingiu o lote mínimo de vendas. Por favor, faça um novo pedido de lote."
-                    send_mail(subject, message, "noreply@example.com", [admin_email])
-
-                for item_lote in FAT_item_nota.objects.filter(Lote_pendente=True):
-                    for produto_lote in DIM_Produto.objects.filter:
                         
                       
                 # Remove a nota fiscal da sessão
@@ -295,6 +280,22 @@ def cart(request): # Define view para a página do carrinho de compras
             redirect ('.') # Volta pra mesma página
 
     return render(request, 'site_vendas/cart.html')
+
+def check_pending_lots():
+                    for item in FAT_item_nota.objects.filter(Lote_pendente = True):
+                        produto = item.Id_PRODUTO
+                        pendentes = FAT_item_nota.objects.filter(Id_PRODUTO=produto, Lote_pendente=True)
+                        if len(pendentes) >= produto.Lote_minimo:
+                            for pendente in pendentes:
+                                pendente.Lote_pendente = False
+                                pendente.save()
+                            send_email_to_admin(pendentes)
+
+def send_email_to_admin(produto):
+    admin_email = "admin@example.com"
+    subject = f"Pedido de novo lote para o produto {produto.Nome_PRODUTO}"
+    message = f"O produto {produto.Nome_PRODUTO} atingiu o lote mínimo de vendas. Por favor, faça um novo pedido de lote."
+    send_mail(subject, message, "noreply@example.com", [admin_email])
 
 
 
