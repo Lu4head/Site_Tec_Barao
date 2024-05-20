@@ -23,7 +23,7 @@
                 <form action="{% url 'cart' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ item.id }}">
-                    <button type="submit" name="action" value="add" class="btn-add">+</button>
+                    <button type="submit" name="action" value="add" class="btn-danger">+</button>
                     {{ item.Qtd_item }}
                     <button type="submit" name="action" value="rm" class="btn-danger">-</button>
                 </form>

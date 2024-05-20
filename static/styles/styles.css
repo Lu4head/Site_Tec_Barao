@@ -124,6 +124,12 @@ header h1 {
     top: 4.7rem;
     right: 3.8rem;
   }
+  .pagprod{
+    width: 30rem;
+  }
+  .imgprod2{
+    width: .3rem;
+  }
 }
 
 /* Para dispositivos maiores que 576px (como tablets) */
@@ -143,7 +149,15 @@ header h1 {
     top: 7rem;
     right: 3.8rem;
   }
+  .pagprod{
+    width: 30rem;
+  }
+  .imgprod2{
+    width: .3rem;
+  }
 }
+
+
 
 
 .carousel {
@@ -184,7 +198,7 @@ a:hover {
 }
 
 .realproduto {
-  border: 1px solid #ccc;
+  border: 1px solid rgb(254, 215, 5);
   border-radius: 10px;
   overflow: hidden;
   margin: 10px;
@@ -199,7 +213,7 @@ a:hover {
   z-index: 5;
 }
 
-#imgprod {
+.imgprod2 {
   max-width: 45rem; /* Imagem responsiva com 45% da largura */
   height: 20rem;
   border-radius: 8px; /* Arredondar as bordas da imagem */
@@ -484,9 +498,6 @@ th {
   padding-right: 20px; /* Espaçamento entre a imagem e as informações */
 }
 
-#imgprod {
-  max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
-}
 
 .notfound{
   border: 1px solid #ccc;
@@ -544,14 +555,6 @@ th {
   color: #fff;
 }
 
-.btn-add {
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  background-color: #43dc35;
-  color: #fff;
-}
 
 /* Estilo do total */
 .total-row td:first-child {
