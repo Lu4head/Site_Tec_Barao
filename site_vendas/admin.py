@@ -29,3 +29,4 @@ class ListaItemNota(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
     list_per_page = 50
 
 admin.site.register(FAT_item_nota, ListaItemNota)
+
