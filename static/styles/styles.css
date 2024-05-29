@@ -98,6 +98,12 @@ header h1 {
     top: 4.7rem;
     right: 3.8rem;
   }
+  .pagprod{
+    width: 30rem;
+  }
+  .imgprod2{
+    width: .3rem;
+  }
 }
 
 /* Para dispositivos maiores que 576px (como tablets) */
@@ -117,7 +123,16 @@ header h1 {
     top: 7rem;
     right: 3.8rem;
   }
+  .pagprod{
+    width: 30rem;
+  }
+  .imgprod2{
+    width: .3rem;
+  }
 }
+
+
+
 
 .carousel {
   display: flex;
@@ -156,7 +171,7 @@ a:hover {
 }
 
 .realproduto {
-  border: 1px solid #ccc;
+  border: 1px solid rgb(254, 215, 5);
   border-radius: 10px;
   overflow: hidden;
   margin: 10px;
@@ -171,8 +186,8 @@ a:hover {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-#imgprod {
-  max-width: 45rem;
+.imgprod2 {
+  max-width: 45rem; /* Imagem responsiva com 45% da largura */
   height: 20rem;
   border-radius: 8px;
   margin-right: 20px;
@@ -437,9 +452,6 @@ th {
   padding-right: 20px;
 }
 
-#imgprod {
-  max-width: 100%;
-}
 
 .notfound {
   border: 1px solid #ccc;
@@ -495,6 +507,8 @@ th {
   color: #fff;
 }
 
+
+/* Estilo do total */
 .total-row td:first-child {
   text-align: right;
   font-weight: bold;
