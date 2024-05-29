@@ -1,0 +1,453 @@
+/* Estilos base */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  color: #fff;
+  z-index: 2;
+}
+
+header {
+  background-color: rgb(254, 215, 5);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  color: black;
+}
+
+.header-links {
+  z-index: 2; 
+}
+
+#img1{
+  max-width: 300px;
+}
+
+#img2 {
+  max-width: 20%;
+  top: 0px;
+  left: 1%;
+  position: fixed;
+  z-index: 6;
+  position: absolute;
+}
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 800px; /* define a largura máxima do container para onecessário */
+  margin: 0 auto;
+  z-index: 6;
+}
+
+.container h2{
+  z-index: 5;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  z-index: 5;
+}
+
+.caneca{
+  padding-top: 10px;
+  z-index: 5;
+}
+
+.product,
+.cart {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  z-index: 5;
+}
+
+.product-image img {
+  width: 100%;
+  border-radius: 10px;
+  z-index: 5;
+}
+
+.product-details {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+  z-index: 5;
+}
+
+.product:hover,
+.cart:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+}
+
+.cart {
+  flex-basis: 100%; /* Largura total */
+  z-index: 5; 
+}
+
+.cart h2 {
+  margin-top: 0;
+  color: black;
+}
+
+.cart-items li {
+  padding: 10px;
+}
+
+.checkout {
+  width: 100%;
+}
+
+.cart-icon {
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  margin-right: 1.8%;
+  position: fixed;
+  top: 19%;
+  right: 1%;
+  position: absolute;
+}
+.login-icon{
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  margin-right: 2%;
+  position: fixed;
+  top: 19%;
+  right: 5%;
+  position: absolute;
+}
+.home-icon{
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  margin-right: 2%;
+  position: fixed;
+  top: 19%;
+  right: 9%;
+  position: absolute;
+}
+
+/* Media queries para telas menores */
+@media screen and (max-width: 768px) {
+  .cart-icon {
+    top: 60px;
+    right: 10px;
+  }
+  .login-icon{
+    top: 66px;
+    right: 45px;
+  }
+
+  .home-icon{
+    right: 180px;
+    top: 66px;
+  }
+}
+
+/* Media queries para telas pequenas */
+@media screen and (max-width: 576px) {
+  #img1{
+    width: 50%;
+  }
+  .cart-icon {
+    top: 45px;
+    right: 10px;
+  }
+  .login-icon{
+    top: 50px;
+    right: 50px;
+  }
+
+  .home-icon{
+    right: 80px;
+    top: 50px;
+  }
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* adiciona rolagem suave horizontal */
+  z-index: 5;
+}
+
+.product {
+  flex: 0 0 auto;
+  width: 300px; /* Largura de cada item do carrossel */
+  margin-right: 20px;
+  scroll-snap-align: start; /* Alinha os itens ao início da tela durante a rolagem */
+}
+
+.product img {
+  width: 100%;
+  height: 50%;
+}
+
+a {
+  text-decoration: none; /* Remove o sublinhado */
+  color: black; /* Define a cor padrão do texto dos links */
+  transition: color 0.3s; /* Adiciona uma transição suave para a mudança de cor */
+}
+
+a:hover {
+  color: white; /* Muda a cor do texto para branco ao passar o mouse */
+}
+
+/*
+.pagprod{
+  margin-left: 30%;
+  margin-top: 5%;
+  display: inline-block;
+  /*grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 200px;
+  
+}
+
+*/
+
+.prodinfo{
+  margin-left: 50%;
+  display: inline-block;
+}
+
+#imgprod{
+  max-width: 300px;
+}
+.pagprod {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: 50px;
+}
+
+.realproduto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 2px solid #ccc; /* Dobre a espessura da borda */
+  padding: 40px; /* Dobre o valor do preenchimento */
+  margin-top: 50px
+}
+
+#imgprod {
+  width: 400px; /* Dobre o tamanho da imagem */
+  height: auto;
+  margin-right: 80px; /* Dobre a margem para separar a imagem do texto */
+}
+
+.prodinfo {
+  flex: 1; /* Para ocupar o espaço disponível */
+}
+
+.prodinfo h2, .prodinfo p {
+  margin: 0; /* Remova as margens padrão */
+  font-size: 36px; /* Dobre o tamanho da fonte */
+}
+
+.formulario {
+  color: black;
+  max-width: 500px;
+  display: flex; /* Alterado para flex */
+  flex-direction: column; /* Define a direção como coluna */
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  margin: 0 auto; /* Adicionado para centralizar horizontalmente */
+  margin: 50px auto 0;
+  animation: fadeIn 1s ease-in-out;
+  bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.formulario h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input, select{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="login"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+input[type="login"]:hover {
+  background-color: #45a049;
+}
+
+input[type="dir_login"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+input[type="dir_login"]:hover {
+  background-color: #45a049;
+}
+
+input[type="dir_cria_conta"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+input[type="dir_cria_conta"]:hover {
+  background-color: #45a049;
+}
+
+input[type="cria_conta"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+input[type="cria_conta"]:hover {
+  background-color: #45a049;
+}
+
+/* Animação de fadeIn */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.cadastro{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 200px;
+  margin: 0 auto;
+  z-index: 6;
+  font-size: 20px;
+  color: black;
+}
+
+footer {
+  background-color: rgb(254, 215, 5);
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.social-icons {
+  font-size: 24px;
+}
+
+.social-icons a {
+  color: black;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: white;
+}
+
+
+.checkout-btn {
+  display: block;
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  flex: 1;
+  table-layout: fixed; /* Adicionado */
+  width: 500px;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid rgb(254, 215, 5);
+  text-align: left;
+}
+th {
+  background-color: rgb(254, 215, 5);
+}
