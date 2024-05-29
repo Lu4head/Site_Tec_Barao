@@ -3,10 +3,6 @@ from datetime import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-
-
-
-
 class DIM_Usuario(models.Model):
 # Modelo/Classe que define a tabela de Usuários da aplicação no banco de dados
     cursos = [ # Dicionário para utilização dos campos choices com todos os cursos do CBM
