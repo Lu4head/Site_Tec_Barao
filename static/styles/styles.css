@@ -24,23 +24,19 @@ header h1 {
   z-index: 2; 
 }
 
-#img1{
+#img1, #img2 {
   max-width: 20rem;
 }
 
 #img2 {
-  max-width: 20%;
-  top: 0px;
-  left: 1%;
   position: fixed;
+  top: 0;
+  left: 1%;
   z-index: 6;
-  position: absolute;
 }
 
-
-#mais-pro h2{
+#mais-pro h2 {
   margin-top: 4rem;
-  z-index: 5;
   text-align: center;
 }
 
@@ -48,14 +44,13 @@ header h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 auto; /* Isso centraliza horizontalmente a div dos produtos */
-  max-width: 1200px; /* Ajuste conforme necessário */
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .product {
   margin: 10px;
-  width: 250px; /* Defina a largura desejada para cada produto */
-  margin: 10px; /* Espaçamento entre os produtos */
+  width: 250px;
   border: 2px solid rgb(254, 215, 5);
   border-radius: 10px;
   overflow: hidden;
@@ -74,36 +69,15 @@ header h1 {
   transform: scale(1.05);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
- 
 
-.cart-icon {
+.cart-icon, .login-icon, .home-icon {
   font-size: 24px;
   text-decoration: none;
   color: black;
-  margin-right: 1.8%;
+  margin-right: 2%;
   position: fixed;
   top: 19%;
   right: 1%;
-  position: absolute;
-}
-.login-icon{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  margin-right: 2%;
-  position: fixed;
-  top: 19%;
-  right: 5%;
-  position: absolute;
-}
-.home-icon{
-  font-size: 24px;
-  text-decoration: none;
-  color: black;
-  margin-right: 2%;
-  position: fixed;
-  top: 19%;
-  right: 9%;
   position: absolute;
 }
 
@@ -114,7 +88,7 @@ header h1 {
   }
   .cart-icon {
     top: 4.7rem;
-    right: 0rem;
+    right: 0;
   }
   .login-icon {
     top: 4.7rem;
@@ -133,7 +107,7 @@ header h1 {
   }
   .cart-icon {
     top: 7rem;
-    right: 0rem;
+    right: 0;
   }
   .login-icon {
     top: 7rem;
@@ -145,19 +119,18 @@ header h1 {
   }
 }
 
-
 .carousel {
   display: flex;
   overflow-x: auto;
-  scroll-snap-type: x mandatory; /* adiciona rolagem suave horizontal */
+  scroll-snap-type: x mandatory;
   z-index: 5;
 }
 
 .product {
   flex: 0 0 auto;
-  width: 300px; /* Largura de cada item do carrossel */
+  width: 300px;
   margin-right: 20px;
-  scroll-snap-align: start; /* Alinha os itens ao início da tela durante a rolagem */
+  scroll-snap-align: start;
 }
 
 .product img {
@@ -166,15 +139,14 @@ header h1 {
 }
 
 a {
-  text-decoration: none; /* Remove o sublinhado */
-  color: black; /* Define a cor padrão do texto dos links */
-  transition: color 0.3s; /* Adiciona uma transição suave para a mudança de cor */
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s;
 }
 
 a:hover {
-  color: white; /* Muda a cor do texto para branco ao passar o mouse */
+  color: white;
 }
-
 
 .pagprod {
   display: flex;
@@ -193,28 +165,27 @@ a:hover {
   z-index: 5;
   max-width: 60rem;
 }
+
 .realproduto:hover {
   transform: scale(1.01);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  z-index: 5;
 }
 
 #imgprod {
-  max-width: 45rem; /* Imagem responsiva com 45% da largura */
+  max-width: 45rem;
   height: 20rem;
-  border-radius: 8px; /* Arredondar as bordas da imagem */
-  margin-right: 20px; /* Espaçamento entre a imagem e as informações */
-  margin: 10px;
+  border-radius: 8px;
+  margin-right: 20px;
 }
 
 .prodinfo {
-  flex: 1; /* Ocupando todo o espaço disponível */
-  margin: 0px 0px 0px 20px;
+  flex: 1;
+  margin: 0 20px 0 0;
 }
 
 .prodinfo h2 {
   font-size: 30px;
-  margin-top: 0; /* Remover margem superior */
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
@@ -223,19 +194,17 @@ a:hover {
   margin: 0;
 }
 
-.description{
-  margin-top: 0px;
+.description {
+  margin-top: 0;
 }
 
 .price {
   font-size: 20px;
-  color: #ff6600; /* Cor do preço */
-  font-weight: bold; /* Negrito para o preço */
+  color: #ff6600;
+  font-weight: bold;
 }
 
-
-
-.login{
+.login, .cadastro {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -247,65 +216,55 @@ a:hover {
   color: black;
 }
 
-.message{
-  --bs-alert-bg: transparent;
-  --bs-alert-padding-x: 1rem;
-  --bs-alert-padding-y: 1rem;
-  --bs-alert-margin-bottom: 1rem;
-  --bs-alert-color: inherit;
-  --bs-alert-border-color: transparent;
-  --bs-alert-border: 1px solid var(--bs-alert-border-color);
-  --bs-alert-border-radius: 0.375rem;
+.message {
   position: relative;
-  padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
-  margin-bottom: var(--bs-alert-margin-bottom);
-  color: var(--bs-alert-color);
-  background-color: var(--bs-alert-bg);
-  border: var(--bs-alert-border);
-  border-radius: var(--bs-alert-border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
 }
 
-.message-index{
-z-index: 7;
-text-align: center;
-max-width: 15%;
-margin: 0 auto;
-margin-top: 1%;
-animation: fadeIn 1s ease-in-out;
+.message-index {
+  z-index: 7;
+  text-align: center;
+  max-width: 15%;
+  margin: 0 auto;
+  margin-top: 1%;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.fade-out{
-  animation: fadeOut 1s ease-in-out forwards; /* Aplica a animação de fade-out com duração de 1 segundo e um efeito suave */
-  animation-delay: 3s; /* Delay de 3 segundos para iniciar a animação de fade-out */
+.fade-out {
+  animation: fadeOut 1s ease-in-out forwards;
+  animation-delay: 3s;
 }
 
 .error-message {
-  --bs-alert-color: #270101;
-  --bs-alert-bg: #ffcfcf;
+  color: #270101;
+  background-color: #ffcfcf;
 }
 
 .success-message {
-  --bs-alert-color: #012c03;
-  --bs-alert-bg: #cfffcf;
+  color: #012c03;
+  background-color: #cfffcf;
 }
 
 .formulario {
   color: black;
   max-width: 500px;
-  display: flex; /* Alterado para flex */
-  flex-direction: column; /* Define a direção como coluna */
-  align-items: center; /* Centraliza horizontalmente */
-  justify-content: center; /* Centraliza verticalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  margin: 0 auto; /* Adicionado para centralizar horizontalmente */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   margin: 50px auto 0;
   animation: fadeIn 1s ease-in-out;
   bottom: 10px;
   margin-bottom: 3.8rem;
-  
 }
 
 .formulario h2 {
@@ -322,7 +281,7 @@ label {
   color: #555;
 }
 
-input, select{
+input, select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -331,8 +290,7 @@ input, select{
   box-sizing: border-box;
 }
 
-
-input.login_form , a.cadastro_form :hover {
+input.login_form, a.cadastro_form:hover {
   background-color: #45a049;
 }
 
@@ -348,10 +306,10 @@ input.login_form {
   transition: background-color 0.3s;
 }
 
-a.cadastro_form{
+a.cadastro_form {
   background-color: #4CAF50;
   color: white;
-  padding: 14px 0px;
+  padding: 14px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -361,28 +319,27 @@ a.cadastro_form{
   transition: background-color 0.3s;
 }
 
-/* Animação de fadeIn */
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(-20px);
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes fadeOut {
   from {
-      opacity: 1; /* No início da animação, o elemento está completamente visível */
+    opacity: 1;
   }
   to {
-      opacity: 0; /* No final da animação, o elemento está completamente transparente */
+    opacity: 0;
   }
 }
 
-.cadastro{
+.cadastro {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -395,15 +352,14 @@ a.cadastro_form{
 }
 
 footer {
-  position: fixed; /* Torna o footer fixo */
-  bottom: 0; /* Coloca o footer no fundo da tela */
-  width: 100%; /* Define a largura total */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   background-color: rgb(254, 215, 5);
   padding: 20px;
   text-align: center;
-  z-index: 999; /* Certifica-se de que o footer esteja acima de outros elementos */
+  z-index: 999;
 }
-
 
 .footer-container {
   max-width: 800px;
@@ -424,7 +380,6 @@ footer {
   color: white;
 }
 
-
 .checkout-btn {
   display: block;
   width: 100%;
@@ -443,7 +398,7 @@ table {
   border-collapse: collapse;
   margin-top: 20px;
   flex: 1;
-  table-layout: fixed; /* Adicionado */
+  table-layout: fixed;
   width: 500px;
 }
 
@@ -452,12 +407,11 @@ th, td {
   border-bottom: 1px solid rgb(254, 215, 5);
   text-align: left;
 }
+
 th {
   background-color: rgb(254, 215, 5);
 }
 
-/* Estilos CSS adicionais para o botão e opções de tamanho */
-/* Estilos CSS adicionais para o botão e opções de tamanho */
 .btn-add-cart {
   background-color: #4CAF50;
   color: white;
@@ -474,21 +428,20 @@ th {
   margin-bottom: 10px;
 }
 
-/* Adicionando estilos para a página de produto */
 .realproduto {
   display: flex;
 }
 
 .prodinfo {
   flex: 1;
-  padding-right: 20px; /* Espaçamento entre a imagem e as informações */
+  padding-right: 20px;
 }
 
 #imgprod {
-  max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
+  max-width: 100%;
 }
 
-.notfound{
+.notfound {
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
@@ -503,7 +456,7 @@ th {
   text-align: center;
 }
 
-.container{
+.container {
   padding-top: 2rem;
 }
 
@@ -514,7 +467,6 @@ th {
   margin: 0 auto;
 }
 
-/* Estilo das células */
 .cart-table th,
 .cart-table td {
   max-width: 35rem;
@@ -522,7 +474,6 @@ th {
   text-align: left;
 }
 
-/* Estilo dos botões */
 .btn {
   border-radius: 50%;
   padding: 5px 10px;
@@ -544,22 +495,11 @@ th {
   color: #fff;
 }
 
-.btn-add {
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  background-color: #43dc35;
-  color: #fff;
-}
-
-/* Estilo do total */
 .total-row td:first-child {
   text-align: right;
   font-weight: bold;
 }
 
-/* Estilo do botão de encerrar */
 .checkout-btn {
   padding: 10px 20px;
   background-color: #28a745;
@@ -573,4 +513,3 @@ th {
 .checkout-btn:hover {
   background-color: #218838;
 }
-
