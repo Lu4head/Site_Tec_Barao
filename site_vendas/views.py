@@ -5,8 +5,17 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
+from .utils import update_nota_total, check_pending_lots, enviar_email_para_admin
+from django.core.mail import EmailMessage
+import os
+from .pixcodegen import Payload
+from django.db.models import Sum
+
 
 email_atletica = "luan.emanuelriar@gmail.com"
+chave_pix = "+5516993561500"
+nome_dono_chave = "LuanEmanuel"
+cidade_dono_chave = "Brodowski"
 
 def index(request): # Define view para a página home
     produtos = DIM_Produto.objects.filter(Produto_ativo_PRODUTO = True) # Lista objetos da classse DIM_Produto no banco filtrando pelos objetos que tenham o parâmetro Produto_ativo = True
@@ -181,16 +190,6 @@ def produto(request, nome_produto): # Define view para a página de produto
                 
     return render(request,'site_vendas/produto.html',{'produto': produto, "form": form })
 
-def update_nota_total(nota_fiscal):
-    # Obtém todos os itens associados à nota fiscal
-    items_nota = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal)
-    # Calcula o novo valor total da nota somando os valores totais de todos os itens
-    novo_valor_total = sum(item.Valor_total_item for item in items_nota) 
-    # Atualiza o valor_total_nota na instância da FAT_Nota
-    nota_fiscal.Valor_total_nota = novo_valor_total
-    nota_fiscal.save()
-
-
 
 def cart(request): # Define view para a página do carrinho de compras
     if request.user.is_authenticated:
@@ -199,8 +198,8 @@ def cart(request): # Define view para a página do carrinho de compras
             nota_fiscal = FAT_Nota.objects.get(id=nota_fiscal_id) #Recupera a nota
             items = FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal) # Obtem todo os itens da nota
             total = sum(item.Valor_total_item for item in items) #Soma o valor total da nota
-
             
+
             if request.method == 'POST' and 'action' in request.POST: 
                 action = request.POST.get('action')
                 if action == "add" or action == "rm":
@@ -208,7 +207,7 @@ def cart(request): # Define view para a página do carrinho de compras
                     if FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).exists():
                         produto_atual = FAT_item_nota.objects.filter(Nota_fiscal = nota_fiscal , Id_USUARIO = request.user.id , id = item_nota).get()
                         if (action == "add") and (produto_atual.Qtd_item < 99): produto_atual.Qtd_item += 1 # Adiciona quantidade do produto
-                        if (action == "rm") and (produto_atual.Qtd_item > 0): produto_atual.Qtd_item -= 1 # Diminui quantidade do produto
+                        if (action == "rm") and (produto_atual.Qtd_item > 1): produto_atual.Qtd_item -= 1 # Diminui quantidade do produto
                         produto_atual.Valor_total_item = float(produto_atual.Id_PRODUTO.Preco_produto) * float(produto_atual.Qtd_item) # Recalcula valor total
                         produto_atual.save() # Salva dados atualizados no banco
                         update_nota_total(nota_fiscal)
@@ -224,16 +223,46 @@ def cart(request): # Define view para a página do carrinho de compras
                     
             
             if request.method == 'POST' and 'encerrar_nota_fiscal' in request.POST: # Concluir compra do carrinho
+                pix = Payload(nome_dono_chave, chave_pix, total, cidade_dono_chave, nota_fiscal.id)
+                pix.gerarPayload()
+                pix_code = pix.payload_completa
+                qr_code_file_name = f"{nota_fiscal.id}.png"
+
+                corpo_email_usuario = "Confirmação de Compra - Atlética Barão de Mauá\n"
+
+                for item in FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal, Id_USUARIO=request.user.id):
+                    corpo_email_usuario += f"Produto: {item.Id_PRODUTO.Nome_PRODUTO}, Quantidade: {item.Qtd_item}, Preço: {(item.Id_PRODUTO.Preco_produto) * (item.Qtd_item)}\n"
+
+                # Adicionar o valor total e o código Pix ao corpo do e-mail
+                
+                corpo_email_usuario += f"\nValor Total: {total}\nCódigo Pix para pagamento: {pix_code}"
+
+                email_usuario = EmailMessage(
+                    "Confirmação de Compra - Atlética Barão de Mauá",
+                    corpo_email_usuario,
+                    "capygramadora@outlook.com",
+                    [f"{request.user.email}"],
+                    )
+                
+                #Anexar o QR Code ao e-mail
+                email_usuario.attach_file(qr_code_file_name)
+
+                # Enviar o e-mail
+                email_usuario.send(fail_silently=False)
+
+                nota_fiscal.Encerrada = True
+                nota_fiscal.save()
+
+                # Deletar o QR Code após o envio do e-mail
+                os.remove(qr_code_file_name)
+                
+                # Quando o usuário concluir a compra deve ser incrementado no banco q tantos de certo produto foram vendidos
+                # quando chegar a tantos produtos vendidos o admin deve receber um email avisando para comprar um novo lote daquele produto
+                check_pending_lots()
+
                 # Remove a nota fiscal da sessão
                 del request.session['nota_fiscal_id']
                 # Redireciona para alguma página após encerrar a nota fiscal
-                send_mail(
-                    "Confirmação de Compra - Atlética Barão de Mauá",
-                    "Test",
-                    f"{email_atletica}",
-                    [f"{request.user.email}"],
-                    fail_silently=True,                    
-                )
                 messages.success(request,f"Compra realizada com sucesso!")
                 return redirect('/')
             
@@ -249,7 +278,6 @@ def cart(request): # Define view para a página do carrinho de compras
             redirect ('.') # Volta pra mesma página
 
     return render(request, 'site_vendas/cart.html')
-
 
 
     

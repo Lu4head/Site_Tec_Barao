@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
+from decouple import config
 
 load_dotenv()
 
@@ -28,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'site_vendas.apps.SiteVendasConfig',
-    'usuarios.apps.UsuariosConfig'
+    'usuarios.apps.UsuariosConfig',
+    'dashboards.apps.DashboardsConfig'
 ]
 
 MIDDLEWARE = [
@@ -139,9 +141,9 @@ JAZZMIN_SETTINGS = {
     "site_title": "Atlética de Técnologia Barão de Mauá",
     "site_header": "Atlética Tec Barão",
     "site_brand": "Administração",
-    "site_logo": "assets\img\logoteste.png",
-    "login_logo": "assets\img\logo_login.png",
-    "login_logo_dark": "assets\img\logo_login.png",
+    "site_logo": "assets/img/logoteste.png",
+    "login_logo": "assets/img/logo_login.png",
+    "login_logo_dark": "assets/img/logo_login.png",
     "site_logo_classes": "img-circle",
     "welcome_sign": "Página Administrativa | Bem-vindo!",
     "copyright": "Atlética Tec Barão",
@@ -152,7 +154,7 @@ JAZZMIN_SETTINGS = {
         # Url that gets reversed (Permissions can be added)
         {"name": "Admin",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Home",  "url": "index", "permissions": ""},
-        {"name": "Dashboards",  "url": "index", "permissions": ""},
+        {"name": "Dashboards",  "url": "dashboards", "permissions": ["auth.view_user"]},
         # model admin to link to (Permissions checked against model)
         #{"model": "auth.User"},
         # App with dropdown menu to all its models pages (Permissions checked against models)
@@ -214,3 +216,16 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     }
 }
+
+# Email
+
+DEFAULT_FROM_EMAIL = "capygramador@gmail.com"
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Apenas exibe Email no console
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # Envia o Email
+
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = "smtp.office365.com"
