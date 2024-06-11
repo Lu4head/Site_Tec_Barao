@@ -21,12 +21,12 @@ class ListaProdutos(admin.ModelAdmin):
 
 admin.site.register(DIM_Produto, ListaProdutos)
 
-class ListaItemNota(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
-    list_display = ("id","Id_USUARIO","Id_PRODUTO","Nota_fiscal")
-    list_display_links = ("id",)
-    search_fields = ("Id_USUARIO","Id_PRODUTO","Nota_fiscal")
-    list_filter = ("Id_USUARIO","Id_PRODUTO","Nota_fiscal")
-    list_per_page = 50
+# class ListaItemNota(admin.ModelAdmin): # Tirar depois ( INÚTIL ! )
+#     list_display = ("id","Id_USUARIO","Id_PRODUTO","Nota_fiscal")
+#     list_display_links = ("id",)
+#     search_fields = ("Id_USUARIO","Id_PRODUTO","Nota_fiscal")
+#     list_filter = ("Id_USUARIO","Id_PRODUTO","Nota_fiscal")
+#     list_per_page = 50
 
-admin.site.register(FAT_item_nota, ListaItemNota)
+# admin.site.register(FAT_item_nota, ListaItemNota)
 

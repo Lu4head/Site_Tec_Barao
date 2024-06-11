@@ -10,10 +10,10 @@
   <a href="{% url 'produto' produto.Nome_PRODUTO %}" class="product-link">
     <div class="product">
       {% if produto.Imagem_PRODUTO == "" or produto.Imagem_PRODUTO == null %}
-      <img src="{% static '/assets/img/not-found.png' %}" alt="Product 1">
+      <img class="img-prduct" src="{% static '/assets/img/not-found.png' %}" alt="Product 1">
       {% else %}
       <h3>{{ produto.Nome_PRODUTO }}</h3>
-      <img src="{{ produto.Imagem_PRODUTO.url }}" alt="Product 1">
+      <img class="img-prduct" src="{{ produto.Imagem_PRODUTO.url }}" alt="Product 1">
       {% endif %}
       <p>{{ produto.Descricao_PRODUTO }}</p>
       <p class="price">${{ produto.Preco_venda_PRODUTO }}</p>

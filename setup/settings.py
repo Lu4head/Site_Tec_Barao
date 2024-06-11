@@ -155,6 +155,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Admin",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Home",  "url": "index", "permissions": ""},
         {"name": "Dashboards",  "url": "dashboards", "permissions": ["auth.view_user"]},
+        {"name": "Exportar CSV", "url": "index", "permissions": ["auth.view_user"]},
         # model admin to link to (Permissions checked against model)
         #{"model": "auth.User"},
         # App with dropdown menu to all its models pages (Permissions checked against models)
