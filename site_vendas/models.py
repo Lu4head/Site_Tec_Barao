@@ -38,7 +38,7 @@ class DIM_Produto (models.Model):
     Tipo_PRODUTO = models.CharField(max_length= 50, choices= tipo_do_produto, verbose_name="Tipo de produto", default="")
     Preco_produto = models.DecimalField(max_digits= 6, decimal_places= 2, null= True, blank= False, verbose_name="Preço unitario do produto")
     Lote_minimo_PRODUTO = models.DecimalField(max_digits= 2, decimal_places= 0, verbose_name= "Quantidade minima de compra",null= True,blank= True)
-    Preco_venda_PRODUTO = models.DecimalField(max_digits= 6, decimal_places= 0, null= True, blank= False, verbose_name="Preço de venda do produto",default=0)
+    Preco_venda_PRODUTO = models.DecimalField(max_digits= 6, decimal_places= 2, null= True, blank= False, verbose_name="Preço de venda do produto",default=0)
     Produto_ativo_PRODUTO = models.BooleanField(default= False)
     Leedtime_PRODUTO = models.DecimalField(max_digits= 2, decimal_places= 0, verbose_name="Tempo medio de espera do produto", null= True,blank=False)
     Imagem_PRODUTO = models.ImageField(upload_to="fotos/", default= "")
