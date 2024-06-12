@@ -44,10 +44,17 @@
           </tr>
           {% endif %}
           <!-- Adicionar uma linha para o total -->
-          <tr>
+            <tr>
               <td colspan="4"><strong>Total:</strong></td>
               <td><strong>R$ {{ total|floatformat:"2" }}</strong></td>
-          </tr>
+            </tr>
+            {% if items %}
+            <tr>
+                <td colspan="3">strong</td>
+                <td colspan="">Prazo de entrega</td>
+                <td >{{ items.0.Id_PRODUTO.Leedtime_PRODUTO }} dias</td>
+            </tr>
+            {% endif %}
           <!-- Adicionar uma linha para o botão de encerrar -->
           <tr>
               <td colspan="5">

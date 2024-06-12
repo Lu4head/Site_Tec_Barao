@@ -232,7 +232,7 @@ def cart(request): # Define view para a página do carrinho de compras
 
                 for item in FAT_item_nota.objects.filter(Nota_fiscal=nota_fiscal, Id_USUARIO=request.user.id):
                     corpo_email_usuario += f"Produto: {item.Id_PRODUTO.Nome_PRODUTO}, Quantidade: {item.Qtd_item}, Preço: {(item.Id_PRODUTO.Preco_produto) * (item.Qtd_item)}\n"
-
+                corpo_email_usuario += "\n Prazo de entrega dos produtos :" + items[0].Id_PRODUTO.Leedtime_PRODUTO
                 # Adicionar o valor total e o código Pix ao corpo do e-mail
                 
                 corpo_email_usuario += f"\nValor Total: {total}\nCódigo Pix para pagamento: {pix_code}"
